@@ -7,3 +7,7 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 
 ## Dependancies
 - Styled Components https://www.npmjs.com/package/styled-components
+
+## tips for responsiveness
+- always use rem for font size (calculates the size from a root element)
+- always use percentages (e.g. %, vh, vw)
