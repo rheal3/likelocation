@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Loader } from 'google-maps';
 import styled from 'styled-components';
 import mapStyle from './mapStyle';
+import circleImg from './circle.svg';
 
 const options = {};
 const loader = new Loader('AIzaSyCsoZ_kZ2RwhNK_CTxddQMdl4rOXYFmLFo', options);
@@ -23,6 +24,19 @@ const createMap = async () => {
         zoom: 8,
         styles: mapStyle,
     });
+    const pinIcon = new google.maps.MarkerImage(
+        circleImg,
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(10, 10)
+    ); 
+    new google.maps.Marker({
+        position: coords,
+        map,
+        title: "You are here!",
+        icon: pinIcon,
+      });
     return map
 }
 
