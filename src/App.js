@@ -3,40 +3,56 @@ import './App.css';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import {Switch, Route, Link, BrowserRouter as Router} from 'react-router-dom'
+import HomePage from './Home/Page'
+import LikesPage from './Likes/Page'
+import MapPage from './Map/Page'
 
 const NavBarContainer = styled.div`
-  background: #ffff00;
+  background: #afe0bf;
   width: 25vw;
   min-width: 100px;
 `
 
 const NavItemStyle = styled.div`
-  padding: 20px;
+  text-align: left;
+  transition: 0.3s;
+  cursor: pointer;
+  &:hover {
+      background: #de6969;
+      a {
+          color: white;
+      }
+  }
+  a {
+    transition: 0.3s;
+    display: block;
+    padding: 15px 10px 15px 20px;
+    text-decoration: none;
+    color: red;
+  }
 `
 
-const NavItem = ({path, title}) =>
+const NavItem = ({path, title, icon}) =>
     <NavItemStyle>
-        <Link to={path}>{title}</Link>
+        <Link to={path}><i className={`fas fa-${icon}`}></i> {title}</Link>
     </NavItemStyle>
 
 NavItem.propTypes = {
     path: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.string
 }
 
 const NavBar = () =>
     <NavBarContainer>
-        <NavItem path="/" title="Home"/>
-        <NavItem path="/map" title="Map"/>
-        <NavItem path="/likes" title="Likes"/>
+        <NavItem path="/" title="Home" icon="home"/>
+        <NavItem path="/map" title="Map" icon="map-signs"/>
+        <NavItem path="/likes" title="Likes" icon="heart"/>
     </NavBarContainer>
 
-const HomePage = () => <div> Home </div>
-const MapPage = () => <div> Hello from Map page </div>
-const LikesPage = () => <div> Hello from Likes page </div>
 
 const ContentContainer = styled.div`
-  background: #6ea982;
+  /* background: #6ea982; */
   display: flex;
   flex-grow: 1;
 `
