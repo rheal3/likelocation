@@ -3,6 +3,7 @@ import {Loader} from 'google-maps';
 import styled from 'styled-components';
 import mapStyle from './mapStyle';
 import circleImg from './circle.svg';
+import axios from 'axios';
 
 const options = {};
 const loader = new Loader('AIzaSyCsoZ_kZ2RwhNK_CTxddQMdl4rOXYFmLFo', options);
@@ -13,6 +14,33 @@ const getCurrentPosition = () => new Promise((resolve) => {
         resolve(coords)
     })
 })
+
+const queryWiki = async (coords) => {
+    let url = `https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=${coords.lat}%7C${coords.lng}&gsradius=10000&gslimit=100&format=json&origin=*`
+    const config = {
+        headers: {
+            "Access-Control-Allow-Origin" : "*",
+            "Access-Control-Allow-Credentials" : true }
+    }
+    const newObj = []
+
+    await axios.get(url, {"Content-Type": "application/json"})
+    .then(response => response.data.query.geosearch)
+    .then(data => {
+        data.filter(item => {
+            const allowed = ['lat', 'lon', 'title', 'pageid'];
+            const filtered = Object.keys(item)
+            .filter(key => allowed.includes(key))
+            .reduce((obj, key) => {
+                obj[key] = item[key];
+                return obj;
+            }, {})
+            newObj.push(filtered);
+        })
+    })
+    return newObj
+}
+
 
 // getting articles from wikipedia
 // use axios to http requests (kind of like the fetchApi) https://github.com/axios/axios
@@ -37,6 +65,8 @@ const createMap = async () => {
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(10, 10)
     );
+    const query = await queryWiki(coords)
+    query.forEach(item => console.log(item))
     new google.maps.Marker({
         position: coords,
         map,
