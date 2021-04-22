@@ -65,14 +65,16 @@ const createMap = async () => {
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(10, 10)
     );
-    const query = await queryWiki(coords)
-    query.forEach(item => console.log(item))
-    new google.maps.Marker({
-        position: coords,
-        map,
-        title: "You are here!",
-        icon: pinIcon,
-    });
+    const wikiData = await queryWiki(coords)
+    wikiData.forEach(item => {
+        console.log(item)
+        new google.maps.Marker({
+            position: {lat: item.lat, lng: item.lon},
+            map,
+            title: item.title,
+            icon: pinIcon,
+        });
+    })
     return map
 }
 
