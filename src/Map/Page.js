@@ -41,15 +41,6 @@ const queryWiki = async (coords) => {
     return newObj
 }
 
-
-// getting articles from wikipedia
-// use axios to http requests (kind of like the fetchApi) https://github.com/axios/axios
-// use this query https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=37.7891838%7C-122.4033522&gsradius=10000&gslimit=100&format=json
-// passing the co-ords from getCurrentPosition into gscoord
-// filter out other data that doesn't relate to the markers (get each pageId, lat, lng, title), digging into the object that gets returned [].filter
-// [].forEach over article new google.maps.Marker
-// Add on click to each marker to display the title and add a like button (when clicked just console.log('clicked'))
-
 const createMap = async () => {
     const google = await loader.load();
     const coords = await getCurrentPosition();
@@ -67,7 +58,6 @@ const createMap = async () => {
     );
     const wikiData = await queryWiki(coords)
     wikiData.forEach(item => {
-        console.log(item)
         new google.maps.Marker({
             position: {lat: item.lat, lng: item.lon},
             map,
