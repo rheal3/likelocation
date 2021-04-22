@@ -58,12 +58,19 @@ const createMap = async () => {
     );
     const wikiData = await queryWiki(coords)
     wikiData.forEach(item => {
-        new google.maps.Marker({
+        const marker = new google.maps.Marker({
             position: {lat: item.lat, lng: item.lon},
             map,
             title: item.title,
             icon: pinIcon,
         });
+        const contentString = `<div><h1>${item.title}</h1><button>Like</button></div>`
+        const infowindow = new google.maps.InfoWindow({
+            content: contentString,
+          });        
+        marker.addListener("click", () => {
+            infowindow.open(map, marker)
+        })
     })
     return map
 }
