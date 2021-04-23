@@ -64,7 +64,7 @@ const createMap = async () => {
             title: item.title,
             icon: pinIcon,
         });
-        const contentString = `<div><h1>${item.title}</h1><button>Like</button></div>`
+        const contentString = `<div><h1>${item.title}</h1><button onclick="function like(){console.log('Like Button Clicked!')};like()">Like</button></div>`
         const infowindow = new google.maps.InfoWindow({
             content: contentString,
           });        
