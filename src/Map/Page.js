@@ -8,13 +8,6 @@ import axios from 'axios';
 const options = {};
 const loader = new Loader('AIzaSyCsoZ_kZ2RwhNK_CTxddQMdl4rOXYFmLFo', options);
 
-const getCurrentPosition = () => new Promise((resolve) => {
-    navigator.geolocation.getCurrentPosition((p) => {
-        const coords = {lat: p.coords.latitude, lng: p.coords.longitude}
-        resolve(coords)
-    })
-})
-
 const queryWiki = async (coords) => {
     let url = `https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=${coords.lat}%7C${coords.lng}&gsradius=10000&gslimit=100&format=json&origin=*`
     
@@ -35,18 +28,6 @@ const queryWiki = async (coords) => {
         })
     })
     return filteredObj;
-}
-
-const createMap = async () => {
-    const google = await loader.load();
-    const coords = await getCurrentPosition();
-    const map = new google.maps.Map(document.getElementById('map'), {
-        center: coords,
-        zoom: 11, //8
-        styles: mapStyle,
-    });
-    await createMarkers(google, coords, map)
-    return map
 }
 
 const createMarkers = async (google, coords, map) => {
@@ -77,6 +58,25 @@ const createMarkers = async (google, coords, map) => {
             infowindow.open(map, marker)
         })
     })
+}
+
+const getCurrentPosition = () => new Promise((resolve) => {
+    navigator.geolocation.getCurrentPosition((p) => {
+        const coords = {lat: p.coords.latitude, lng: p.coords.longitude}
+        resolve(coords)
+    })
+})
+
+const createMap = async () => {
+    const google = await loader.load();
+    const coords = await getCurrentPosition();
+    const map = new google.maps.Map(document.getElementById('map'), {
+        center: coords,
+        zoom: 11, //8
+        styles: mapStyle,
+    });
+    await createMarkers(google, coords, map)
+    return map
 }
 
 const MapContainer = styled.div`
