@@ -1,9 +1,8 @@
 # LikeLocation
 
-- [ ] Setup navigation (setup the react router and navigation bar https://reactrouter.com/)
+- [x] Setup navigation (setup the react router and navigation bar https://reactrouter.com/)
 Example:
 http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_screen_preview/23764691?_ga=2.76555861.1184397108.1618913666-1104986363.1618913600
-- [ ]
 
 ## Dependancies
 - Styled Components https://www.npmjs.com/package/styled-components
@@ -20,4 +19,4 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 - [x] passing the co-ords from getCurrentPosition into gscoord
 - [x] filter out other data that doesn't relate to the markers (get each pageId, lat, lng, title), digging into the object that gets returned [].filter
 - [x] [].forEach over article new google.maps.Marker
-- [ ] Add on click to each marker to display the title and add a like button (when clicked just console.log('clicked'))
+- [x] Add on click to each marker to display the title and add a like button (when clicked just console.log('clicked'))
