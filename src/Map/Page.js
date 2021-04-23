@@ -17,12 +17,8 @@ const getCurrentPosition = () => new Promise((resolve) => {
 
 const queryWiki = async (coords) => {
     let url = `https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=${coords.lat}%7C${coords.lng}&gsradius=10000&gslimit=100&format=json&origin=*`
-    const config = {
-        headers: {
-            "Access-Control-Allow-Origin" : "*",
-            "Access-Control-Allow-Credentials" : true }
-    }
-    const newObj = []
+    
+    const filteredObj = []
 
     await axios.get(url, {"Content-Type": "application/json"})
     .then(response => response.data.query.geosearch)
@@ -30,15 +26,15 @@ const queryWiki = async (coords) => {
         data.filter(item => {
             const allowed = ['lat', 'lon', 'title', 'pageid'];
             const filtered = Object.keys(item)
-            .filter(key => allowed.includes(key))
-            .reduce((obj, key) => {
-                obj[key] = item[key];
-                return obj;
-            }, {})
-            newObj.push(filtered);
+                             .filter(key => allowed.includes(key))
+                             .reduce((obj, key) => {
+                                 obj[key] = item[key];
+                                 return obj;
+                             }, {})
+            filteredObj.push(filtered);
         })
     })
-    return newObj
+    return filteredObj;
 }
 
 const createMap = async () => {
@@ -46,7 +42,7 @@ const createMap = async () => {
     const coords = await getCurrentPosition();
     const map = new google.maps.Map(document.getElementById('map'), {
         center: coords,
-        zoom: 8,
+        zoom: 11, //8
         styles: mapStyle,
     });
     const pinIcon = new google.maps.MarkerImage(
@@ -57,6 +53,7 @@ const createMap = async () => {
         new google.maps.Size(10, 10)
     );
     const wikiData = await queryWiki(coords)
+    const infowindow = new google.maps.InfoWindow();        
     wikiData.forEach(item => {
         const marker = new google.maps.Marker({
             position: {lat: item.lat, lng: item.lon},
@@ -64,11 +61,14 @@ const createMap = async () => {
             title: item.title,
             icon: pinIcon,
         });
-        const contentString = `<div><h1>${item.title}</h1><button onclick="function like(){console.log('Like Button Clicked!')};like()">Like</button></div>`
-        const infowindow = new google.maps.InfoWindow({
-            content: contentString,
-          });        
+        const contentString = `
+            <div>
+                <h1>${item.title}</h1>
+                <button onclick="function like(){console.log('Like Button Clicked!')};like()">Like</button>
+            </div>
+        `
         marker.addListener("click", () => {
+            infowindow.setContent(contentString)
             infowindow.open(map, marker)
         })
     })
