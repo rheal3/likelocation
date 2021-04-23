@@ -45,6 +45,11 @@ const createMap = async () => {
         zoom: 11, //8
         styles: mapStyle,
     });
+    await createMarkers(google, coords, map)
+    return map
+}
+
+const createMarkers = async (google, coords, map) => {
     const pinIcon = new google.maps.MarkerImage(
         circleImg,
         null, /* size is determined at runtime */
@@ -72,7 +77,6 @@ const createMap = async () => {
             infowindow.open(map, marker)
         })
     })
-    return map
 }
 
 const MapContainer = styled.div`
