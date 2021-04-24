@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './logo.png';
 import './App.css';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
@@ -11,6 +11,12 @@ const NavBarContainer = styled.div`
   background: #afe0bf;
   width: 25vw;
   min-width: 100px;
+  img {
+      width: 20vw;
+      margin-top: 10px;
+      padding: 5px;
+      border: solid 3px;
+  }
 `
 
 const NavItemStyle = styled.div`
@@ -45,6 +51,7 @@ NavItem.propTypes = {
 
 const NavBar = () =>
     <NavBarContainer>
+        <img src={logo} alt="" />
         <NavItem path="/" title="Home" icon="home"/>
         <NavItem path="/map" title="Map" icon="map-signs"/>
         <NavItem path="/likes" title="Likes" icon="heart"/>
