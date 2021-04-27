@@ -27,6 +27,10 @@ const queryWiki = async (coords) => {
         .then(locations => locations.map(selectLocationProperties))
 }
 
+const like = (title, pageid) => {
+    console.log(title, pageid)
+}
+
 const createMarkers = async (google, coords, map) => {
     const pinIcon = new google.maps.MarkerImage(
         circleImg,
@@ -37,17 +41,17 @@ const createMarkers = async (google, coords, map) => {
     );
     const wikiData = await queryWiki(coords)
     const infowindow = new google.maps.InfoWindow();
-    wikiData.forEach(item => {
+    wikiData.forEach(({lat, lon, title, pageid}) => {
         const marker = new google.maps.Marker({
-            position: {lat: item.lat, lng: item.lon},
+            position: {lat, lng: lon},
             map,
-            title: item.title,
+            title,
             icon: pinIcon,
         });
         const contentString = `
             <div>
-                <h1>${item.title}</h1>
-                <button onclick="function like(){console.log('Like Button Clicked!')};like()">Like</button>
+                <h1>${title}</h1>
+                <button onclick="like('${title}', '${pageid}')">Like</button>
             </div>
         `
         marker.addListener("click", () => {
@@ -89,6 +93,7 @@ const MapContainer = styled.div`
 const MapPage = () => {
     const [map, setMap] = useState(null)
     useEffect(() => {
+        window.like = like
         createMap().then(map => {
             setMap(map)
         })
