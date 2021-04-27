@@ -1,4 +1,4 @@
-import logo from './logo.png';
+import logo from './logo2.png';
 import './App.css';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
