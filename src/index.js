@@ -29,9 +29,11 @@ const anotherReducer = (state = initStateAnother, {type, payload}) => {
 const likesReducer = (state = initState, {type, payload}) => {
     switch (type) {
         case 'likes/locationSelected':
-            console.log('state likes', state)
-            console.log('action', type, payload)
-            return state
+            const currentLikes = state.likes
+            return {
+                ...state,
+                likes: [...currentLikes, payload]
+            }
         default :
             return state
     }

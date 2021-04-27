@@ -29,9 +29,8 @@ const queryWiki = async (coords) => {
         .then(locations => locations.map(selectLocationProperties))
 }
 
-const like = (title, pageid) => {
-    // TODO implement redux
-    console.log(title, pageid)
+const _like = (dispatch, title, pageid) => {
+    dispatch({type: 'likes/locationSelected', payload: {title, pageid}})
 }
 
 const createMarkers = async (google, coords, map) => {
@@ -95,19 +94,21 @@ const MapContainer = styled.div`
 
 const MapPage = () => {
     const [map, setMap] = useState(null)
-
+    const dispatch = useDispatch()
     useEffect(() => {
-        window.like = like
+        window['like'] = _like.bind(null, dispatch)
         createMap().then(map => {
             setMap(map)
         })
     }, [])
 
-    const dispatch = useDispatch()
     const allAnothers = useSelector((state => state.another.another ));
     const viewAnothers = allAnothers.map(({hello}) =>
         <div>{hello}</div>
     )
+
+    const allLikes = useSelector((state => state.likes.likes));
+    console.log(allLikes)
 
     return (
         <MapContainer>
