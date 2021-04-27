@@ -3,7 +3,9 @@ import {Loader} from 'google-maps';
 import styled from 'styled-components';
 import mapStyle from './mapStyle';
 import circleImg from './circle.svg';
+import {useDispatch, useSelector} from "react-redux";
 import axios from 'axios';
+
 
 const options = {};
 const loader = new Loader('AIzaSyCsoZ_kZ2RwhNK_CTxddQMdl4rOXYFmLFo', options);
@@ -28,6 +30,7 @@ const queryWiki = async (coords) => {
 }
 
 const like = (title, pageid) => {
+    // TODO implement redux
     console.log(title, pageid)
 }
 
@@ -92,12 +95,19 @@ const MapContainer = styled.div`
 
 const MapPage = () => {
     const [map, setMap] = useState(null)
+
     useEffect(() => {
         window.like = like
         createMap().then(map => {
             setMap(map)
         })
     }, [])
+
+    const dispatch = useDispatch()
+    const allAnothers = useSelector((state => state.another.another ));
+    const viewAnothers = allAnothers.map(({hello}) =>
+        <div>{hello}</div>
+    )
 
     return (
         <MapContainer>

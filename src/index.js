@@ -3,12 +3,54 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Provider} from "react-redux";
+import {createStore, combineReducers} from "redux";
+
+
+const initState = {likes: []}
+const initStateAnother = {
+    another: [],
+    something: 'else'
+}
+
+const anotherReducer = (state = initStateAnother, {type, payload}) => {
+    switch (type) {
+        case 'another/example':
+            const currentAnothers = state.another
+            return {
+                ...state,
+                another: [...currentAnothers, payload]
+            }
+        default:
+            return state
+    }
+}
+
+const likesReducer = (state = initState, {type, payload}) => {
+    switch (type) {
+        case 'likes/locationSelected':
+            console.log('state likes', state)
+            console.log('action', type, payload)
+            return state
+        default :
+            return state
+    }
+}
+
+const rootReducer = combineReducers({
+    likes: likesReducer,
+    another: anotherReducer
+})
+
+const store = createStore(rootReducer);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
