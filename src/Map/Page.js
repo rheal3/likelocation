@@ -10,7 +10,6 @@ const loader = new Loader('AIzaSyCsoZ_kZ2RwhNK_CTxddQMdl4rOXYFmLFo', options);
 
 const queryWiki = async (coords) => {
     let url = `https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=${coords.lat}%7C${coords.lng}&gsradius=10000&gslimit=100&format=json&origin=*`
-    console.log(url)
     const filteredObj = []
 
     await axios.get(url, {"Content-Type": "application/json"})
