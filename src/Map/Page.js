@@ -8,25 +8,23 @@ import axios from 'axios';
 const options = {};
 const loader = new Loader('AIzaSyCsoZ_kZ2RwhNK_CTxddQMdl4rOXYFmLFo', options);
 
-const queryWiki = async (coords) => {
-    let url = `https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=${coords.lat}%7C${coords.lng}&gsradius=10000&gslimit=100&format=json&origin=*`
-    const filteredObj = []
+const selectLocationProperties = ({lat, lon, title, pageid}) => ({lat, lon, title, pageid})
 
-    await axios.get(url, {"Content-Type": "application/json"})
-    .then(response => response.data.query.geosearch)
-    .then(data => {
-        data.filter(item => {
-            const allowed = ['lat', 'lon', 'title', 'pageid'];
-            const filtered = Object.keys(item)
-                             .filter(key => allowed.includes(key))
-                             .reduce((obj, key) => {
-                                 obj[key] = item[key];
-                                 return obj;
-                             }, {})
-            filteredObj.push(filtered);
-        })
+const queryWiki = async (coords) => {
+    return await axios.get("https://en.wikipedia.org/w/api.php", {
+        "Content-Type": "application/json",
+        params: {
+            action: 'query',
+            list: 'geosearch',
+            gscoord: `${coords.lat}|${coords.lng}`,
+            gsradius: 10000,
+            gslimit: 100,
+            format: 'json',
+            origin: '*'
+        }
     })
-    return filteredObj;
+        .then(response => response.data.query.geosearch)
+        .then(locations => locations.map(selectLocationProperties))
 }
 
 const createMarkers = async (google, coords, map) => {
@@ -38,7 +36,7 @@ const createMarkers = async (google, coords, map) => {
         new google.maps.Size(10, 10)
     );
     const wikiData = await queryWiki(coords)
-    const infowindow = new google.maps.InfoWindow();        
+    const infowindow = new google.maps.InfoWindow();
     wikiData.forEach(item => {
         const marker = new google.maps.Marker({
             position: {lat: item.lat, lng: item.lon},
