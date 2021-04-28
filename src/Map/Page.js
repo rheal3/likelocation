@@ -3,6 +3,7 @@ import {Loader} from 'google-maps';
 import styled from 'styled-components';
 import mapStyle from './mapStyle';
 import circleImg from './circle.svg';
+import likedCircleImg from './likedCircle.svg';
 import {useDispatch, useSelector} from "react-redux";
 import axios from 'axios';
 
@@ -42,25 +43,18 @@ const createMarkers = async (google, coords, map) => {
         new google.maps.Size(10, 10)
     );
     const wikiData = await queryWiki(coords)
-    const infowindow = new google.maps.InfoWindow();
+    const markerArray = [];
     wikiData.forEach(({lat, lon, title, pageid}) => {
         const marker = new google.maps.Marker({
             position: {lat, lng: lon},
             map,
             title,
             icon: pinIcon,
+            pageid,
         });
-        const contentString = `
-            <div>
-                <h1>${title}</h1>
-                <button onclick="like('${title}', '${pageid}')">Like</button>
-            </div>
-        `
-        marker.addListener("click", () => {
-            infowindow.setContent(contentString)
-            infowindow.open(map, marker)
-        })
+        markerArray.push(marker)
     })
+    return markerArray
 }
 
 const getCurrentPosition = () => new Promise((resolve) => {
@@ -70,15 +64,14 @@ const getCurrentPosition = () => new Promise((resolve) => {
     })
 })
 
-const createMap = async () => {
-    const google = await loader.load();
+const createMap = async (google) => {
     const coords = await getCurrentPosition();
     const map = new google.maps.Map(document.getElementById('map'), {
         center: coords,
         zoom: 12, //8
         styles: mapStyle,
     });
-    await createMarkers(google, coords, map)
+    // await createMarkers(google, coords, map)
     return map
 }
 
@@ -93,22 +86,59 @@ const MapContainer = styled.div`
 `
 
 const MapPage = () => {
+    const allLikes = useSelector((state => state.likes.likes));
     const [map, setMap] = useState(null)
+    const [google, setGoogle] = useState(null)
+    const [coords, setCoords] = useState(null)
+    const [markers, setMarkers] = useState(null)
     const dispatch = useDispatch()
     useEffect(() => {
+        loader.load().then(google => {
+            createMap(google).then(map => {
+                setMap(map)
+            })
+            setGoogle(google)
+        });
+        getCurrentPosition().then(coords => setCoords(coords));
         window['like'] = _like.bind(null, dispatch)
-        createMap().then(map => {
-            setMap(map)
-        })
     }, [])
+
+    useEffect(() => {
+        if (google && coords && map) {
+            createMarkers(google, coords, map).then(markers => {
+                setMarkers(markers)
+                markers.forEach(marker => {
+                    const contentString = `
+                    <div>
+                        <h1>${marker.title}</h1>
+                        <button onclick="like('${marker.title}', '${marker.pageid}')">Like</button>
+                    </div>
+                    `            
+                    marker.addListener("click", () => {
+                        let currentInfoWindow = window.infoWindow
+                        if (!currentInfoWindow) {
+                            currentInfoWindow = new google.maps.InfoWindow();
+                            window.infoWindow = currentInfoWindow
+                        }
+                        currentInfoWindow.close()
+                        currentInfoWindow.setContent(contentString)
+                        currentInfoWindow.open(map, marker)
+                    })
+                    
+                    allLikes.forEach(({pageid}) => {
+                        if (marker['pageid'] == pageid) {
+                            marker['icon']['url'] = likedCircleImg
+                        }
+                    })
+                })
+            })
+        } 
+    }, [google, coords, map, allLikes])
 
     const allAnothers = useSelector((state => state.another.another ));
     const viewAnothers = allAnothers.map(({hello}) =>
         <div>{hello}</div>
     )
-
-    const allLikes = useSelector((state => state.likes.likes));
-    console.log(allLikes)
 
     return (
         <MapContainer>
