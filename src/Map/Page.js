@@ -34,14 +34,18 @@ const sendSelectedLocation = (title, pageid) => {
     return new Promise((resolve, reject) => {
         window.setTimeout(() => {
             resolve({title, pageid})
-        }, 500)
+        }, 5000)
     })
 }
 
+const setLikeLoading = () => ({type: 'likes/loading'})
+const selectLocation = (like) => ({type: 'likes/locationSelected', payload: like})
+
 const locationSelectedAction = (title, pageid) => {
     return (dispatch) => {
+        dispatch(setLikeLoading())
         sendSelectedLocation(title, pageid).then((like) => {
-            dispatch({type: 'likes/locationSelected', payload: like})
+            dispatch(selectLocation(like))
         })
     }
 }
@@ -100,14 +104,26 @@ const MapContainer = styled.div`
     width: 100%;
   }
 `
+const infoWindowId = "infowindow"
+const infoWindowContent = (title, pageid, isLoading) => {
+    return `
+            <div id="${infoWindowId}">
+                <h1>${title}</h1>
+                <button onclick="like('${title}', '${pageid}')">Like</button> 
+            </divi>
+`
+}
 
 const MapPage = () => {
     const allLikes = useSelector((state => state.likes.likes));
+    const isLoading = useSelector((state => state.likes.isLoading));
+    console.log('isLoading', isLoading)
     const [map, setMap] = useState(null)
     const [google, setGoogle] = useState(null)
     const [coords, setCoords] = useState(null)
     const [markers, setMarkers] = useState(null)
     const dispatch = useDispatch()
+
     useEffect(() => {
         loader.load().then(google => {
             createMap(google).then(map => {
@@ -120,16 +136,28 @@ const MapPage = () => {
     }, [])
 
     useEffect(() => {
+        if (isLoading) {
+            console.log('is loading', isLoading)
+            const infoWindowDiv = document.getElementById(infoWindowId)
+            const spinnerElement = document.createElement('i')
+            spinnerElement.id = 'spinner_id'
+            spinnerElement.className = 'spinner fas fa-circle-notch'
+            infoWindowDiv.appendChild(spinnerElement)
+        } else {
+            const spinner = document.getElementById('spinner_id')
+            if (spinner) {
+                spinner.outerHTML = ""
+            }
+        }
+    }, [isLoading])
+
+    useEffect(() => {
         if (google && coords && map) {
             createMarkers(google, coords, map).then(markers => {
                 setMarkers(markers)
                 markers.forEach(marker => {
-                    const contentString = `
-                    <div>
-                        <h1>${marker.title}</h1>
-                        <button onclick="like('${marker.title}', '${marker.pageid}')">Like</button>
-                    </div>
-                    `            
+                    const {pageid, title} = marker
+                    const contentString = infoWindowContent(title, pageid, false)
                     marker.addListener("click", () => {
                         let currentInfoWindow = window.infoWindow
                         if (!currentInfoWindow) {
@@ -140,7 +168,7 @@ const MapPage = () => {
                         currentInfoWindow.setContent(contentString)
                         currentInfoWindow.open(map, marker)
                     })
-                    
+
                     allLikes.forEach(({pageid}) => {
                         if (marker['pageid'] === Number(pageid)) {
                             marker['icon']['url'] = likedCircleImg
@@ -148,10 +176,10 @@ const MapPage = () => {
                     })
                 })
             })
-        } 
+        }
     }, [google, coords, map, allLikes])
 
-    const allAnothers = useSelector((state => state.another.another ));
+    const allAnothers = useSelector((state => state.another.another));
     const viewAnothers = allAnothers.map(({hello}) =>
         <div>{hello}</div>
     )

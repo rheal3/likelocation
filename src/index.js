@@ -8,7 +8,11 @@ import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 
 
-const initState = {likes: []}
+const initState = {
+    likes: [],
+    isLoading: false
+}
+
 const initStateAnother = {
     another: [],
     something: 'else'
@@ -33,7 +37,14 @@ const likesReducer = (state = initState, {type, payload}) => {
             const currentLikes = state.likes
             return {
                 ...state,
+                isLoading: false,
                 likes: [...currentLikes, payload]
+            }
+        case 'likes/loading':
+            console.log('hitting the loading reducer')
+            return {
+                ...state,
+                isLoading: true
             }
         default :
             return state
