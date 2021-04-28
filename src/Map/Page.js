@@ -30,8 +30,24 @@ const queryWiki = async (coords) => {
         .then(locations => locations.map(selectLocationProperties))
 }
 
+const sendSelectedLocation = (title, pageid) => {
+    return new Promise((resolve, reject) => {
+        window.setTimeout(() => {
+            resolve({title, pageid})
+        }, 500)
+    })
+}
+
+const locationSelectedAction = (title, pageid) => {
+    return (dispatch) => {
+        sendSelectedLocation(title, pageid).then((like) => {
+            dispatch({type: 'likes/locationSelected', payload: like})
+        })
+    }
+}
+
 const _like = (dispatch, title, pageid) => {
-    dispatch({type: 'likes/locationSelected', payload: {title, pageid}})
+    dispatch(locationSelectedAction(title, pageid))
 }
 
 const createMarkers = async (google, coords, map) => {
