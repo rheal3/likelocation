@@ -126,7 +126,7 @@ const MapPage = () => {
                     })
                     
                     allLikes.forEach(({pageid}) => {
-                        if (marker['pageid'] == pageid) {
+                        if (marker['pageid'] === Number(pageid)) {
                             marker['icon']['url'] = likedCircleImg
                         }
                     })
