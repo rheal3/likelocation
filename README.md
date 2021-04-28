@@ -20,3 +20,21 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 - [x] filter out other data that doesn't relate to the markers (get each pageId, lat, lng, title), digging into the object that gets returned [].filter
 - [x] [].forEach over article new google.maps.Marker
 - [x] Add on click to each marker to display the title and add a like button (when clicked just console.log('clicked'))
+
+## Populate the likes page (http://localhost:3000/likes)
+- [ ] Create a simple (or complex) list view
+    - visit themeforest for inspiration
+- [ ] get the likes from the store (hint: use useSelector) inside the page
+  - checkout how lists are rendered in react https://reactjs.org/docs/lists-and-keys.html
+  - use the pageid as the key
+  - what are keys used for in React and why are they important?
+- [ ] add the ability to remove a like
+- [ ] create a hyperlink to the wikipedia article when you click it
+
+## create and route to a LikeViewPage
+- [ ] create a new page component (probably in a separate directory) (hint: use the same selector as for the allLikes value in the MapPage)
+- [ ] create a route with path "/like/:pageid" (no sidebar link needed)
+- [ ] set the title
+- [ ] set the article body (hint: query filters the wikipedia api to get clean content)
+- [ ] set any image from the article
+- [ ] add button "view full article" (hint: use an anchor, style it as a button)
