@@ -117,7 +117,6 @@ const infoWindowContent = (title, pageid, isLoading) => {
 const MapPage = () => {
     const allLikes = useSelector((state => state.likes.likes));
     const isLoading = useSelector((state => state.likes.isLoading));
-    console.log('isLoading', isLoading)
     const [map, setMap] = useState(null)
     const [google, setGoogle] = useState(null)
     const [coords, setCoords] = useState(null)
@@ -137,7 +136,6 @@ const MapPage = () => {
 
     useEffect(() => {
         if (isLoading) {
-            console.log('is loading', isLoading)
             const infoWindowDiv = document.getElementById(infoWindowId)
             const spinnerElement = document.createElement('i')
             spinnerElement.id = 'spinner_id'

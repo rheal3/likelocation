@@ -41,7 +41,6 @@ const likesReducer = (state = initState, {type, payload}) => {
                 likes: [...currentLikes, payload]
             }
         case 'likes/loading':
-            console.log('hitting the loading reducer')
             return {
                 ...state,
                 isLoading: true
