@@ -28,8 +28,8 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
   - checkout how lists are rendered in react https://reactjs.org/docs/lists-and-keys.html
   - use the pageid as the key
   - what are keys used for in React and why are they important?
-- [ ] add the ability to remove a like
-- [ ] create a hyperlink to the wikipedia article when you click it
+- [x] add the ability to remove a like
+- [x] create a hyperlink to the wikipedia article when you click it
 
 ## create and route to a LikeViewPage
 - [ ] create a new page component (probably in a separate directory) (hint: use the same selector as for the allLikes value in the MapPage)

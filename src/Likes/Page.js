@@ -1,12 +1,29 @@
 import styled from 'styled-components';
 import {useDispatch, useSelector} from "react-redux";
+import axios from "axios";
+import {useState, useEffect} from 'react';
 
-const insertData = (allLikes, dispatch) => {
+const getWikiPageUrls =  (allLikes) => new Promise ((resolve) => {
+    const pageIds = allLikes.map(like => like.pageid).join('|')
+    axios.get("https://en.wikipedia.org/w/api.php", {
+        "Content-Type": "application/json",
+        params: {
+            action: 'query',
+            prop: 'info',
+            pageids: pageIds,
+            inprop: 'url',
+            format: 'json',
+            origin: '*'
+        }
+    }).then(response => resolve(response.data.query.pages))
+})
+
+const insertData = (allLikes, dispatch, allUrls) => {
     const tableData = allLikes.map(location => {
         return (
             <tr key={location.pageid}>
-                <th scope="row"><a href="">{location.title}</a></th>
-                {/* <td>{location.pageid}</td> */}
+                <th scope="row"><a href={allUrls[location.pageid].fullurl} target="_blank">{location.title}</a></th>
+                <td>{location.pageid}</td>
                 <td><i class="fas fa-trash-alt" onClick={() => {removeLikedLocation(dispatch, location.pageid)}}></i></td>
             </tr>
         )
@@ -26,9 +43,12 @@ const LikesContainer = styled.div`
 `
 
 const LikesPage = () => {
+    const [allUrls, setAllUrls] = useState(null)
     const allLikes = useSelector((state => state.likes.likes));
     const dispatch = useDispatch()
-
+    useEffect(() => {
+        getWikiPageUrls(allLikes).then(response => setAllUrls(response))
+    }, [])
     return (
         <LikesContainer> 
             <h1>title - likes page</h1>
@@ -37,16 +57,15 @@ const LikesPage = () => {
                 <thead>
                     <tr>
                     <th scope="col">Liked Locations</th>
-                    {/* <th scope="col">Wiki Article</th> */}
+                    <th scope="col">Wiki Article</th>
                     <th scope="col">Remove</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {insertData(allLikes, dispatch)}
+                    {insertData(allLikes, dispatch, allUrls)}
                 </tbody>
                 </table>
             </div>
-            
         </LikesContainer>
     )
 }
