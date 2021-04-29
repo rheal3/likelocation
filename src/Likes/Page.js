@@ -1,17 +1,23 @@
 import styled from 'styled-components';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
-const insertData = (allLikes) => {
+const insertData = (allLikes, dispatch) => {
     const tableData = allLikes.map(location => {
         return (
             <tr key={location.pageid}>
                 <th scope="row"><a href="">{location.title}</a></th>
                 {/* <td>{location.pageid}</td> */}
-                <td><i class="fas fa-trash-alt"></i></td>
+                <td><i class="fas fa-trash-alt" onClick={() => {removeLikedLocation(dispatch, location.pageid)}}></i></td>
             </tr>
         )
     })
     return tableData
+}
+
+const removeLocation = (like) => ({type: 'likes/locationRemoved', payload: like})
+
+const removeLikedLocation = (dispatch, pageid) => {
+    dispatch(removeLocation(pageid))
 }
 
 const LikesContainer = styled.div`
@@ -21,12 +27,13 @@ const LikesContainer = styled.div`
 
 const LikesPage = () => {
     const allLikes = useSelector((state => state.likes.likes));
+    const dispatch = useDispatch()
 
     return (
         <LikesContainer> 
             <h1>title - likes page</h1>
             <div>
-                <table class="table" data-link="row">
+                <table className="table" data-link="row">
                 <thead>
                     <tr>
                     <th scope="col">Liked Locations</th>
@@ -35,10 +42,11 @@ const LikesPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {insertData(allLikes)}
+                    {insertData(allLikes, dispatch)}
                 </tbody>
                 </table>
             </div>
+            
         </LikesContainer>
     )
 }

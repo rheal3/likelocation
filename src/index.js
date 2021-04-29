@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from "react-redux";
+import {connectAdvanced, Provider} from "react-redux";
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 
@@ -40,6 +40,10 @@ const likesReducer = (state = initState, {type, payload}) => {
                 isLoading: false,
                 likes: [...currentLikes, payload]
             }
+        case 'likes/locationRemoved':
+            const allLikes = state.likes
+            const allLikesRemoved = allLikes.filter(location => location.pageid !== payload)
+            return {likes: allLikesRemoved}
         case 'likes/loading':
             return {
                 ...state,
