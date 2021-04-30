@@ -3,32 +3,42 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {useState, useEffect} from 'react';
 
-const getWikiPageUrls =  (allLikes) => new Promise ((resolve) => {
+const getWikiPageUrls =  (allLikes) => new Promise ((resolve, reject) => {
     const pageIds = allLikes.map(like => like.pageid).join('|')
-    axios.get("https://en.wikipedia.org/w/api.php", {
-        "Content-Type": "application/json",
-        params: {
-            action: 'query',
-            prop: 'info',
-            pageids: pageIds,
-            inprop: 'url',
-            format: 'json',
-            origin: '*'
+    if (!pageIds) {
+        reject(console.log('no liked locations'))
+    } else {
+        try {
+            axios.get("https://en.wikipedia.org/w/api.php", {
+                "Content-Type": "application/json",
+                params: {
+                    action: 'query',
+                    prop: 'info',
+                    pageids: pageIds,
+                    inprop: 'url',
+                    format: 'json',
+                    origin: '*'
+                }
+            }).then(response => resolve(response.data.query.pages))
+        } catch (err) {
+            console.log(err.message)
         }
-    }).then(response => resolve(response.data.query.pages))
+    }
 })
 
 const insertData = (allLikes, dispatch, allUrls) => {
-    const tableData = allLikes.map(location => {
-        return (
-            <tr key={location.pageid}>
-                <th scope="row"><a href={allUrls[location.pageid].fullurl} target="_blank">{location.title}</a></th>
-                <td>{location.pageid}</td>
-                <td><i class="fas fa-trash-alt" onClick={() => {removeLikedLocation(dispatch, location.pageid)}}></i></td>
-            </tr>
-        )
-    })
-    return tableData
+    if (allLikes && allUrls) {
+        const tableData = allLikes.map(location => {
+            return (
+                <tr key={location.pageid}>
+                    <th scope="row"><a href={allUrls[location.pageid].fullurl} target="_blank">{location.title}</a></th>
+                    <td>{location.pageid}</td>
+                    <td><i class="fas fa-trash-alt" onClick={() => {removeLikedLocation(dispatch, location.pageid)}}></i></td>
+                </tr>
+            )
+        })
+        return tableData
+    }
 }
 
 const removeLocation = (like) => ({type: 'likes/locationRemoved', payload: like})
@@ -48,7 +58,7 @@ const LikesPage = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         getWikiPageUrls(allLikes).then(response => setAllUrls(response))
-    }, [])
+    }, [allLikes])
     return (
         <LikesContainer> 
             <h1>title - likes page</h1>
