@@ -34,7 +34,12 @@ const insertData = (allLikes, dispatch, allUrls) => {
             let link = `/likes/${location.pageid}`
             return (
                 <tr key={location.pageid}>
-                    <th scope="row"><Link to={link}>{location.title}</Link></th>
+                    <th scope="row"><Link to={{
+                        pathname: link, 
+                        locationProps: {
+                            name: location.title
+                            }
+                        }}>{location.title}</Link></th>
                     <td>{location.pageid}</td>
                     <td><i class="fas fa-trash-alt" onClick={() => {removeLikedLocation(dispatch, location.pageid)}}></i></td>
                 </tr>
