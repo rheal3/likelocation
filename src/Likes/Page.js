@@ -34,7 +34,6 @@ const insertData = (allLikes, dispatch, allUrls) => {
             let link = `/likes/${location.pageid}`
             let url = allUrls[location.pageid].fullurl
             return (
-                // TODO display nested in single row (no bullets) (styled component)
                 <ul className="nested">
                     <li key={location.pageid}>
                         <Link to={{
@@ -45,7 +44,7 @@ const insertData = (allLikes, dispatch, allUrls) => {
                             }
                         }}>{location.title}</Link>
                     </li>
-                    <li key="{location.pageid}-trash">
+                    <li key={`${location.pageid}-trash`}>
                         <i className="fas fa-trash-alt" 
                             style={{cursor: 'pointer'}} //TODO - put in styled component :) 
                             onClick={() => {removeLikedLocation(dispatch, location.pageid)}}>
@@ -67,6 +66,13 @@ const removeLikedLocation = (dispatch, pageid) => {
 const LikesContainer = styled.div`
   font-family: Roboto;
   width: 100%;
+  ul {
+    list-style-type: none;
+  }
+  .nested li {
+      display: inline;
+      padding: 0px 10px;
+  }
 `
 
 const LikesPage = () => {
