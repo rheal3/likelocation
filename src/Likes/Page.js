@@ -32,12 +32,14 @@ const insertData = (allLikes, dispatch, allUrls) => {
     if (allLikes && allUrls) {
         const tableData = allLikes.map(location => {
             let link = `/likes/${location.pageid}`
+            let url = allUrls[location.pageid].fullurl
             return (
                 <tr key={location.pageid}>
                     <th scope="row"><Link to={{
                         pathname: link, 
                         locationProps: {
-                            name: location.title
+                            name: location.title,
+                            url
                             }
                         }}>{location.title}</Link></th>
                     <td>{location.pageid}</td>
