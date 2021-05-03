@@ -11,7 +11,7 @@ import SingleLikePage from './SingleLike/Page'
 const NavBarContainer = styled.div`
   background: #afe0bf;
   width: 25vw;
-  min-width: 100px;
+  /* min-width: 100px; */
   img {
       width: 20vw;
       margin-top: 10px;

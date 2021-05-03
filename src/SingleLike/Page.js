@@ -1,8 +1,14 @@
 import { useParams } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import axios from "axios";
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
+import styled from 'styled-components';
 
+
+const ContentContainter = styled.div`
+width: 90%;
+margin: 30px auto;
+`
 
 const SingleLikePage = (props) => {
     const { pageId } = useParams();
@@ -26,10 +32,10 @@ const SingleLikePage = (props) => {
     }, [pageId])
 
     return (
-        <div>
+        <ContentContainter>
             <h1>{title}</h1>
             {ReactHtmlParser(html)}
-        </div>
+        </ContentContainter>
     )
 }
 
