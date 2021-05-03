@@ -14,7 +14,7 @@ const NavBarContainer = styled.div`
   /* min-width: 100px; */
   img {
       width: 20vw;
-      margin-top: 10px;
+      margin: 10px 10px 0px 10px;
       padding: 5px;
       border: solid 3px;
   }

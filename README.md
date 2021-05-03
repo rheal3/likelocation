@@ -36,5 +36,5 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 - [x] create a route with path "/like/:pageid" (no sidebar link needed)
 - [ ] set the title
 - [ ] set the article body (hint: query filters the wikipedia api to get clean content)
-- [ ] set any image from the article
+- [x] set any image from the article
 - [ ] add button "view full article" (hint: use an anchor, style it as a button)
