@@ -42,7 +42,6 @@ const insertData = (allLikes, dispatch, allUrls) => {
                             url
                             }
                         }}>{location.title}</Link></th>
-                    <td>{location.pageid}</td>
                     <td><i className="fas fa-trash-alt" onClick={() => {removeLikedLocation(dispatch, location.pageid)}}></i></td>
                 </tr>
             )
@@ -77,7 +76,6 @@ const LikesPage = () => {
                 <thead>
                     <tr>
                     <th scope="col">Liked Locations</th>
-                    <th scope="col">Wiki Article</th>
                     <th scope="col">Remove</th>
                     </tr>
                 </thead>
