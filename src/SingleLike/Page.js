@@ -8,6 +8,7 @@ import styled from 'styled-components';
 const ContentContainter = styled.div`
 width: 90%;
 margin: 30px auto;
+overflow-y: auto;
 `
 
 const SingleLikePage = (props) => {
