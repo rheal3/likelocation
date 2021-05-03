@@ -42,7 +42,7 @@ const insertData = (allLikes, dispatch, allUrls) => {
                             url
                             }
                         }}>{location.title}</Link></th>
-                    <td><i className="fas fa-trash-alt" onClick={() => {removeLikedLocation(dispatch, location.pageid)}}></i></td>
+                    <td><i className="fas fa-trash-alt" style={{cursor: 'pointer'}}onClick={() => {removeLikedLocation(dispatch, location.pageid)}}></i></td>
                 </tr>
             )
         })

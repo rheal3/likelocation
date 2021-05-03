@@ -22,7 +22,7 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 - [x] Add on click to each marker to display the title and add a like button (when clicked just console.log('clicked'))
 
 ## Populate the likes page (http://localhost:3000/likes)
-- [ ] Create a simple (or complex) list view
+- [x] Create a simple (or complex) list view
     - visit themeforest for inspiration
 - [ ] get the likes from the store (hint: use useSelector) inside the page
   - checkout how lists are rendered in react https://reactjs.org/docs/lists-and-keys.html
@@ -32,7 +32,7 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 - [x] create a hyperlink to the wikipedia article when you click it
 
 ## create and route to a LikeViewPage
-- [ ] create a new page component (probably in a separate directory) (hint: use the same selector as for the allLikes value in the MapPage)
+- [x] create a new page component (probably in a separate directory) (hint: use the same selector as for the allLikes value in the MapPage)
 - [x] create a route with path "/like/:pageid" (no sidebar link needed)
 - [x] set the title
 - [x] set the article body (hint: query filters the wikipedia api to get clean content)
