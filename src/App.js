@@ -6,6 +6,7 @@ import {Switch, Route, Link, BrowserRouter as Router} from 'react-router-dom'
 import HomePage from './Home/Page'
 import LikesPage from './Likes/Page'
 import MapPage from './Map/Page'
+import SingleLikePage from './SingleLike/Page'
 
 const NavBarContainer = styled.div`
   background: #afe0bf;
@@ -67,15 +68,10 @@ const ContentContainer = styled.div`
 const Content = () =>
     <Switch>
         <ContentContainer>
-            <Route exact path="/">
-                <HomePage/>
-            </Route>
-            <Route path="/map">
-                <MapPage/>
-            </Route>
-            <Route path="/likes">
-                <LikesPage/>
-            </Route>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/map" component={MapPage} />
+            <Route exact path="/likes" component={LikesPage} />
+            <Route path="/likes/:pageId" component={SingleLikePage} />
         </ContentContainer>
     </Switch>
 

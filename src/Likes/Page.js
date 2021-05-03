@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
+
 
 const getWikiPageUrls =  (allLikes) => new Promise ((resolve, reject) => {
     const pageIds = allLikes.map(like => like.pageid).join('|')
@@ -29,9 +31,10 @@ const getWikiPageUrls =  (allLikes) => new Promise ((resolve, reject) => {
 const insertData = (allLikes, dispatch, allUrls) => {
     if (allLikes && allUrls) {
         const tableData = allLikes.map(location => {
+            let link = `/likes/${location.pageid}`
             return (
                 <tr key={location.pageid}>
-                    <th scope="row"><a href={allUrls[location.pageid].fullurl} target="_blank">{location.title}</a></th>
+                    <th scope="row"><Link to={link}>{location.title}</Link></th>
                     <td>{location.pageid}</td>
                     <td><i class="fas fa-trash-alt" onClick={() => {removeLikedLocation(dispatch, location.pageid)}}></i></td>
                 </tr>
