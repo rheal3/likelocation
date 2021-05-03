@@ -34,16 +34,24 @@ const insertData = (allLikes, dispatch, allUrls) => {
             let link = `/likes/${location.pageid}`
             let url = allUrls[location.pageid].fullurl
             return (
-                <tr key={location.pageid}>
-                    <th scope="row"><Link to={{
+                // TODO display nested in single row (no bullets) (styled component)
+                <ul className="nested">
+                    <li key={location.pageid}>
+                        <Link to={{
                         pathname: link, 
                         locationProps: {
                             name: location.title,
                             url
                             }
-                        }}>{location.title}</Link></th>
-                    <td><i className="fas fa-trash-alt" style={{cursor: 'pointer'}}onClick={() => {removeLikedLocation(dispatch, location.pageid)}}></i></td>
-                </tr>
+                        }}>{location.title}</Link>
+                    </li>
+                    <li key="{location.pageid}-trash">
+                        <i className="fas fa-trash-alt" 
+                            style={{cursor: 'pointer'}} //TODO - put in styled component :) 
+                            onClick={() => {removeLikedLocation(dispatch, location.pageid)}}>
+                        </i>
+                    </li>
+                </ul>
             )
         })
         return tableData
@@ -72,17 +80,9 @@ const LikesPage = () => {
         <LikesContainer> 
             <h1>title - likes page</h1>
             <div>
-                <table className="table" data-link="row">
-                <thead>
-                    <tr>
-                    <th scope="col">Liked Locations</th>
-                    <th scope="col">Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <ul>
                     {insertData(allLikes, dispatch, allUrls)}
-                </tbody>
-                </table>
+                </ul>
             </div>
         </LikesContainer>
     )
