@@ -55,7 +55,7 @@ const SingleLikePage = (props) => {
     return (
         <ContentContainter>
             <h1>{title}</h1>
-            <img src={imgUrl} />
+            <img src={imgUrl} alt="" />
             {ReactHtmlParser(htmlContent)}
             <a href={articleUrl} className="btn btn-primary" target="_blank">Full Article</a>
         </ContentContainter>

@@ -34,7 +34,7 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 ## create and route to a LikeViewPage
 - [ ] create a new page component (probably in a separate directory) (hint: use the same selector as for the allLikes value in the MapPage)
 - [x] create a route with path "/like/:pageid" (no sidebar link needed)
-- [ ] set the title
-- [ ] set the article body (hint: query filters the wikipedia api to get clean content)
+- [x] set the title
+- [x] set the article body (hint: query filters the wikipedia api to get clean content)
 - [x] set any image from the article
-- [ ] add button "view full article" (hint: use an anchor, style it as a button)
+- [x] add button "view full article" (hint: use an anchor, style it as a button)
