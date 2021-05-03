@@ -15,8 +15,6 @@ const SingleLikePage = (props) => {
     const title = props.location.locationProps.name
     const [html, setHtml] = useState();
     useEffect(() => {
-        // get info from wiki page => set into article
-        // https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=Woodwark,%20Queensland        
         axios.get("https://en.wikipedia.org/w/api.php", {
             "Content-Type": "application/json",
             params: {
@@ -25,7 +23,6 @@ const SingleLikePage = (props) => {
                 titles: title.replace(' ', '_'),
                 format: 'json',
                 origin: '*',
-                // exintro: 1
             }
         }).then(response => setHtml(response.data.query.pages[pageId].extract))
 
