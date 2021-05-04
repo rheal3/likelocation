@@ -5,43 +5,16 @@ import {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
 
-const getWikiPageUrls =  (allLikes) => new Promise ((resolve) => {
-    const pageIds = allLikes.map(like => like.pageid).join('|')
-    if (!pageIds) {
-        resolve([])
-    } else {
-        try {
-            axios.get("https://en.wikipedia.org/w/api.php", {
-                "Content-Type": "application/json",
-                params: {
-                    action: 'query',
-                    prop: 'info',
-                    pageids: pageIds,
-                    inprop: 'url',
-                    format: 'json',
-                    origin: '*'
-                }
-            }).then(response => resolve(response.data.query.pages))
-        } catch (err) {
-            console.log(err.message)
-        }
-    }
-})
 
-const insertData = (allLikes, dispatch, allUrls) => {
-    if (allLikes && allUrls) {
+const LikedLocationList = ({allLikes, dispatch}) => {
+    if (allLikes) {
         const tableData = allLikes.map(location => {
             let link = `/likes/${location.pageid}`
-            let url = allUrls[location.pageid].fullurl
             return (
                 <ul className="nested" key={location.pageid}>
                     <li key={`${location.page}-title`}>
                         <Link to={{
-                        pathname: link, 
-                        locationProps: {
-                            name: location.title,
-                            url
-                            }
+                            pathname: link, 
                         }}>{location.title}</Link>
                     </li>
                     <li key={`${location.pageid}-trash`}>
@@ -93,18 +66,15 @@ const LikesContainer = styled.div`
 `
 
 const LikesPage = () => {
-    const [allUrls, setAllUrls] = useState(null)
     const allLikes = useSelector((state => state.likes.likes));
     const dispatch = useDispatch()
-    useEffect(() => {
-        getWikiPageUrls(allLikes).then(response => setAllUrls(response)).catch(err => console.log(err))
-    }, [allLikes])
+
     return (
         <LikesContainer> 
             <h1>Liked Locations</h1>
             <div>
                 <ul>
-                    {insertData(allLikes, dispatch, allUrls)}
+                    <LikedLocationList allLikes={allLikes} dispatch={dispatch} />
                 </ul>
             </div>
         </LikesContainer>

@@ -29,8 +29,32 @@ const getWikiContent = (title, pageId) => new Promise((resolve) => {
             format: 'json',
             origin: '*',
         }
-    }).then(response => resolve(response.data.query.pages[pageId].extract))
+    }).then(response => {
+        // console.log(response)
+        const page = response.data.query.pages[pageId]
+        const extract = page.extract
+        resolve(extract)
+    }
+)})
+
+const getWikiPageUrl =  (pageId) => new Promise ((resolve) => {
+    try {
+        axios.get("https://en.wikipedia.org/w/api.php", {
+            "Content-Type": "application/json",
+            params: {
+                action: 'query',
+                prop: 'info',
+                pageids: pageId,
+                inprop: 'url',
+                format: 'json',
+                origin: '*'
+            }
+        }).then(response => resolve(response.data.query.pages))
+    } catch (err) {
+        console.log(err.message)
+    }
 })
+
 
 const ContentContainter = styled.div`
   width: 90%;
@@ -50,8 +74,8 @@ const SingleLikePage = (props) => {
     const {pageId} = useParams();
     const [htmlContent, setHtmlContent] = useState();
     const [imgUrl, setImgUrl] = useState();
-    const title = props.location.locationProps.name
-    const articleUrl = props.location.locationProps.url
+    const [articleUrl, setArticleUrl] = useState();
+    const [title, setTitle] = useState();
 
     const filterUnwantedArticleSections = (nodes) => {
         let shouldRemove = false
@@ -69,8 +93,13 @@ const SingleLikePage = (props) => {
     }
 
     useEffect(() => {
-        getWikiContent(title, pageId).then(response => setHtmlContent(response))
-        getWikiImage(title, pageId).then(response => setImgUrl(response))
+        getWikiPageUrl(pageId).then(response => {
+            const title = response[pageId].title
+            setArticleUrl(response[pageId].fullurl)
+            setTitle(title)
+            getWikiContent(title, pageId).then(response => setHtmlContent(response))
+            getWikiImage(title, pageId).then(response => setImgUrl(response))    
+        })
     }, [pageId])
 
     const parsed = ReactHtmlParser(htmlContent, {preprocessNodes: filterUnwantedArticleSections})
@@ -86,5 +115,3 @@ const SingleLikePage = (props) => {
 }
 
 export default SingleLikePage
-
-
