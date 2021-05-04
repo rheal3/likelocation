@@ -64,14 +64,30 @@ const removeLikedLocation = (dispatch, pageid) => {
 }
 
 const LikesContainer = styled.div`
+  overflow-y: auto;
   font-family: Roboto;
-  width: 100%;
+  width: 90%;
+  margin: 30px auto;
   ul {
     list-style-type: none;
+    padding-left: 0px;
+  }
+  ul.nested {
+    background: #e2eaf4;
+  }
+  .nested {
+    display: flex;
+    place-content: space-between;
+    padding: 5px 10px;
+    margin: 10px;
+  }
+  .nested li:first-child {
+    font-size: 19px;
   }
   .nested li {
-      display: inline;
-      padding: 0px 10px;
+    text-align: center;
+    padding: 5px 20px;
+    margin: 12px;
   }
 `
 
@@ -84,7 +100,7 @@ const LikesPage = () => {
     }, [allLikes])
     return (
         <LikesContainer> 
-            <h1>title - likes page</h1>
+            <h1>Liked Locations</h1>
             <div>
                 <ul>
                     {insertData(allLikes, dispatch, allUrls)}
