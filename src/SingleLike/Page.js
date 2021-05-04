@@ -53,7 +53,7 @@ const SingleLikePage = (props) => {
     const title = props.location.locationProps.name
     const articleUrl = props.location.locationProps.url
 
-    const preprocessNodes = (nodes) => {
+    const filterUnwantedArticleSections = (nodes) => {
         let shouldRemove = false
         return nodes.reduce((nodes, currentNode) => {
             if (currentNode.name === 'h2') {
@@ -68,13 +68,12 @@ const SingleLikePage = (props) => {
         }, [])
     }
 
-
     useEffect(() => {
         getWikiContent(title, pageId).then(response => setHtmlContent(response))
         getWikiImage(title, pageId).then(response => setImgUrl(response))
     }, [pageId])
 
-    const parsed = ReactHtmlParser(htmlContent, {preprocessNodes: preprocessNodes})
+    const parsed = ReactHtmlParser(htmlContent, {preprocessNodes: filterUnwantedArticleSections})
 
     return (
         <ContentContainter>
