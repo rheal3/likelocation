@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 
 
 const initState = {
-    likes: [],
+    likes: [{title: "Reef HQ", pageid: "9442370"}],
     isLoading: false
 }
 
@@ -31,6 +31,7 @@ const anotherReducer = (state = initStateAnother, {type, payload}) => {
     }
 }
 
+//FIXME move this into own file
 const likesReducer = (state = initState, {type, payload}) => {
     switch (type) {
         case 'likes/locationSelected':

@@ -1,7 +1,7 @@
-import { useParams } from 'react-router-dom';
-import {useState, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+import {useEffect, useState} from 'react';
 import axios from "axios";
-import ReactHtmlParser, {htmlparser2} from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 import styled from 'styled-components';
 
 const getWikiImage = (title, pageId) => new Promise((resolve) => {
@@ -33,45 +33,53 @@ const getWikiContent = (title, pageId) => new Promise((resolve) => {
 })
 
 const ContentContainter = styled.div`
-width: 90%;
-margin: 30px auto;
-overflow-y: auto;
+  width: 90%;
+  margin: 30px auto;
+  overflow-y: auto;
 `
 
+
+const articleHeadingBlackList = [
+    //TODO add more we don't want
+    'references',
+    'external_links',
+    'see_also'
+]
+
 const SingleLikePage = (props) => {
-    const { pageId } = useParams();
+    const {pageId} = useParams();
     const [htmlContent, setHtmlContent] = useState();
     const [imgUrl, setImgUrl] = useState();
-    const title= props.location.locationProps.name
+    const title = props.location.locationProps.name
     const articleUrl = props.location.locationProps.url
-    console.log(htmlContent)   
-    
-    function transform(node) {
-        // do not render any <span> tags
-        console.log(node)
-        // if (node.type === 'tag' && node.name === 'span') {
-        //   return null;
-        // }
-        return node
-      }
 
-    const preprocessNodes = (arg) => {
-        console.log(arg)
-        return arg
+    const preprocessNodes = (nodes) => {
+        let shouldRemove = false
+        return nodes.reduce((nodes, currentNode) => {
+            if (currentNode.name === 'h2') {
+                const currentHeading = currentNode.children[0].attribs.id
+                shouldRemove = articleHeadingBlackList.some((listItem) => listItem === currentHeading.toLowerCase())
+            }
+            if (shouldRemove) {
+                return nodes
+            } else {
+                return [...nodes, currentNode]
+            }
+        }, [])
     }
-    
+
 
     useEffect(() => {
         getWikiContent(title, pageId).then(response => setHtmlContent(response))
         getWikiImage(title, pageId).then(response => setImgUrl(response))
     }, [pageId])
 
-    const parsed = ReactHtmlParser(htmlContent, {transform: transform, preprocessNodes: preprocessNodes})
+    const parsed = ReactHtmlParser(htmlContent, {preprocessNodes: preprocessNodes})
 
     return (
         <ContentContainter>
             <h1>{title}</h1>
-            <img src={imgUrl} alt="" />
+            <img src={imgUrl} alt=""/>
             {parsed}
             <a href={articleUrl} className="btn btn-primary" target="_blank">Full Article</a>
         </ContentContainter>
