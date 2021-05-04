@@ -12,8 +12,9 @@ const NavBarContainer = styled.div`
   background: #afe0bf;
   width: 25vw;
   /* min-width: 100px; */
+  font-size: 19px;
   img {
-      width: 20vw;
+      width: 21vw;
       margin: 10px 10px 0px 10px;
       padding: 5px;
       border: solid 3px;
