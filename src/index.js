@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 
 
 const initState = {
-    likes: [{title: "Reef HQ", pageid: "9442370"}],
+    likes: [],
     isLoading: false
 }
 
