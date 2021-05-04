@@ -83,6 +83,7 @@ const LikesContainer = styled.div`
   }
   .nested li:first-child {
     font-size: 19px;
+    color: #ff0000;
   }
   .nested li {
     text-align: center;
