@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import axios from "axios";
-import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser, {htmlparser2} from 'react-html-parser';
 import styled from 'styled-components';
 
 const getWikiImage = (title, pageId) => new Promise((resolve) => {
@@ -18,8 +18,6 @@ const getWikiImage = (title, pageId) => new Promise((resolve) => {
         }
     }).then(response => resolve(response.data.query.pages[pageId].thumbnail.source))
 })
-
-
 
 const getWikiContent = (title, pageId) => new Promise((resolve) => {
     axios.get("https://en.wikipedia.org/w/api.php", {
@@ -46,17 +44,35 @@ const SingleLikePage = (props) => {
     const [imgUrl, setImgUrl] = useState();
     const title= props.location.locationProps.name
     const articleUrl = props.location.locationProps.url
+    console.log(htmlContent)   
     
+    function transform(node) {
+        // do not render any <span> tags
+        console.log(node)
+        // if (node.type === 'tag' && node.name === 'span') {
+        //   return null;
+        // }
+        return node
+      }
+
+    const preprocessNodes = (arg) => {
+        console.log(arg)
+        return arg
+    }
+    
+
     useEffect(() => {
         getWikiContent(title, pageId).then(response => setHtmlContent(response))
         getWikiImage(title, pageId).then(response => setImgUrl(response))
     }, [pageId])
 
+    const parsed = ReactHtmlParser(htmlContent, {transform: transform, preprocessNodes: preprocessNodes})
+
     return (
         <ContentContainter>
             <h1>{title}</h1>
             <img src={imgUrl} alt="" />
-            {ReactHtmlParser(htmlContent)}
+            {parsed}
             <a href={articleUrl} className="btn btn-primary" target="_blank">Full Article</a>
         </ContentContainter>
     )

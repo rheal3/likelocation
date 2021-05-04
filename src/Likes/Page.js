@@ -5,10 +5,10 @@ import {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
 
-const getWikiPageUrls =  (allLikes) => new Promise ((resolve, reject) => {
+const getWikiPageUrls =  (allLikes) => new Promise ((resolve) => {
     const pageIds = allLikes.map(like => like.pageid).join('|')
     if (!pageIds) {
-        reject(console.log('no liked locations'))
+        resolve([])
     } else {
         try {
             axios.get("https://en.wikipedia.org/w/api.php", {
@@ -34,8 +34,8 @@ const insertData = (allLikes, dispatch, allUrls) => {
             let link = `/likes/${location.pageid}`
             let url = allUrls[location.pageid].fullurl
             return (
-                <ul className="nested">
-                    <li key={location.pageid}>
+                <ul className="nested" key={location.pageid}>
+                    <li key={`${location.page}-title`}>
                         <Link to={{
                         pathname: link, 
                         locationProps: {
@@ -97,7 +97,7 @@ const LikesPage = () => {
     const allLikes = useSelector((state => state.likes.likes));
     const dispatch = useDispatch()
     useEffect(() => {
-        getWikiPageUrls(allLikes).then(response => setAllUrls(response))
+        getWikiPageUrls(allLikes).then(response => setAllUrls(response)).catch(err => console.log(err))
     }, [allLikes])
     return (
         <LikesContainer> 
