@@ -6,37 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import {connectAdvanced, Provider} from "react-redux";
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
+import likesReducer from './Likes/store'
 
 
-const initState = {
-    likes: [],
-    isLoading: false
-}
-
-
-//FIXME move this into own file
-const likesReducer = (state = initState, {type, payload}) => {
-    switch (type) {
-        case 'likes/locationSelected':
-            const currentLikes = state.likes
-            return {
-                ...state,
-                isLoading: false,
-                likes: [...currentLikes, payload]
-            }
-        case 'likes/locationRemoved':
-            const allLikes = state.likes
-            const allLikesRemoved = allLikes.filter(location => location.pageid !== payload)
-            return {likes: allLikesRemoved}
-        case 'likes/loading':
-            return {
-                ...state,
-                isLoading: true
-            }
-        default :
-            return state
-    }
-}
 
 const rootReducer = combineReducers({
     likes: likesReducer,

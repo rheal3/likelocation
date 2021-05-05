@@ -177,11 +177,6 @@ const MapPage = () => {
         }
     }, [google, coords, map, allLikes])
 
-    const allAnothers = useSelector((state => state.another.another));
-    const viewAnothers = allAnothers.map(({hello}) =>
-        <div>{hello}</div>
-    )
-
     return (
         <MapContainer>
             <div id='map'></div>
