@@ -70,7 +70,7 @@ const articleHeadingBlackList = [
     'see_also'
 ]
 
-const SingleLikePage = (props) => {
+const SingleLikePage = () => {
     const {pageId} = useParams();
     const [htmlContent, setHtmlContent] = useState();
     const [imgUrl, setImgUrl] = useState();

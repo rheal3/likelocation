@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import emptyStateIllustration from './emptyStateIllustration.png'
 
 
 
@@ -28,6 +29,25 @@ const LikedLocationList = ({allLikes, dispatch}) => {
         })
         return tableData
     }
+}
+
+const EmptyLikesContainer = styled.div`
+img {
+    width: 400px;
+    height: 400px;
+}
+`
+
+const EmptyLikesComponent = () => {
+    return (
+        <Link to="/map">
+            <EmptyLikesContainer>
+                <img src={emptyStateIllustration} alt="you have no likes"/>
+                <h2>you don't have any likes :(</h2>
+                <p>click here to add likes</p>
+            </EmptyLikesContainer>
+        </Link>
+    )
 }
 
 const removeLocation = (like) => ({type: 'likes/locationRemoved', payload: like})
@@ -72,11 +92,7 @@ const LikesPage = () => {
     return (
         <LikesContainer> 
             <h1>Liked Locations</h1>
-            <div>
-                <ul>
-                    <LikedLocationList allLikes={allLikes} dispatch={dispatch} />
-                </ul>
-            </div>
+            {allLikes.length > 0 ? <LikedLocationList allLikes={allLikes} dispatch={dispatch} /> : <EmptyLikesComponent />}
         </LikesContainer>
     )
 }

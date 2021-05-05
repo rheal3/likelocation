@@ -13,23 +13,6 @@ const initState = {
     isLoading: false
 }
 
-const initStateAnother = {
-    another: [],
-    something: 'else'
-}
-
-const anotherReducer = (state = initStateAnother, {type, payload}) => {
-    switch (type) {
-        case 'another/example':
-            const currentAnothers = state.another
-            return {
-                ...state,
-                another: [...currentAnothers, payload]
-            }
-        default:
-            return state
-    }
-}
 
 //FIXME move this into own file
 const likesReducer = (state = initState, {type, payload}) => {
@@ -57,7 +40,6 @@ const likesReducer = (state = initState, {type, payload}) => {
 
 const rootReducer = combineReducers({
     likes: likesReducer,
-    another: anotherReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
