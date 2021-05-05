@@ -38,3 +38,13 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 - [x] set the article body (hint: query filters the wikipedia api to get clean content)
 - [x] set any image from the article
 - [x] add button "view full article" (hint: use an anchor, style it as a button)
+
+## add production ready refinements
+- [ ] https://testing-library.com/docs/react-testing-library (completely optional because it's F'd)
+- [ ] create a 'npm run lint' command script
+  - What a linter is, why is it important?
+- [ ] Setup circleci for our project https://circleci.com/ (setup a configuration and show it working in the dashboard)
+  - What is continuous integration (CI)
+  - What is a CI pipeline
+  - What goes in a CI pipeline
+  - Have circleci run the tests and run lint

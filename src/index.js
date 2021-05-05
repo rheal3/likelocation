@@ -8,8 +8,6 @@ import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 import likesReducer from './Likes/store'
 
-
-
 const rootReducer = combineReducers({
     likes: likesReducer,
 })

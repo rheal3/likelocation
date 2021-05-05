@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 import {useDispatch, useSelector} from "react-redux";
-import axios from "axios";
-import {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import emptyStateIllustration from './emptyStateIllustration.png'
-
-
 
 const LikedLocationList = ({allLikes, dispatch}) => {
     if (allLikes) {
@@ -86,13 +82,12 @@ const LikesContainer = styled.div`
 `
 
 const LikesPage = () => {
-    const allLikes = useSelector((state => state.likes.likes));
+    const allLikes = useSelector(state => state.likes.likes);
     const dispatch = useDispatch()
-
     return (
         <LikesContainer> 
             <h1>Liked Locations</h1>
-            {allLikes.length > 0 ? <LikedLocationList allLikes={allLikes} dispatch={dispatch} /> : <EmptyLikesComponent />}
+            {allLikes.length > 0 ? <LikedLocationList allLikes={allLikes} dispatch={dispatch}/> : <EmptyLikesComponent/>}
         </LikesContainer>
     )
 }
