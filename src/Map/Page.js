@@ -31,7 +31,7 @@ const queryWiki = async (coords) => {
 }
 
 const sendSelectedLocation = (title, pageid) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         window.setTimeout(() => {
             resolve({title, pageid})
         }, 5000)
@@ -105,7 +105,7 @@ const MapContainer = styled.div`
   }
 `
 const infoWindowId = "infowindow"
-const infoWindowContent = (title, pageid, isLoading) => {
+const infoWindowContent = (title, pageid) => {
     return `
             <div id="${infoWindowId}">
                 <h1>${title}</h1>
@@ -120,7 +120,7 @@ const MapPage = () => {
     const [map, setMap] = useState(null)
     const [google, setGoogle] = useState(null)
     const [coords, setCoords] = useState(null)
-    const [markers, setMarkers] = useState(null)
+    const [setMarkers] = useState(null)
     const dispatch = useDispatch()
 
     useEffect(() => {

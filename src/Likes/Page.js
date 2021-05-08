@@ -39,7 +39,7 @@ const EmptyLikesComponent = () => {
         <Link to="/map">
             <EmptyLikesContainer>
                 <img src={emptyStateIllustration} alt="you have no likes"/>
-                <h2>you don't have any likes :(</h2>
+                <h2>you don&apos;t have any likes :(</h2>
                 <p>click here to add likes</p>
             </EmptyLikesContainer>
         </Link>

@@ -109,7 +109,7 @@ const SingleLikePage = () => {
             <h1>{title}</h1>
             <img src={imgUrl} alt=""/>
             {parsed}
-            <a href={articleUrl} className="btn btn-primary" target="_blank">Full Article</a>
+            <a href={articleUrl} className="btn btn-primary" target="_blank" rel="noreferrer">Full Article</a>
         </ContentContainter>
     )
 }
