@@ -48,3 +48,8 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
   - What is a CI pipeline
   - What goes in a CI pipeline
   - Have circleci run the tests and run lint
+    
+## Functional programming
+- [ ] revisit HoFs
+- [ ] what is a Referential Transparency? (and how is that different to a Pure Function)
+- [ ] what is recursion? (what problems are recursive by nature?)
