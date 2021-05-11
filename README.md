@@ -43,7 +43,7 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 - [ ] https://testing-library.com/docs/react-testing-library (completely optional because it's F'd)
 - [x] create a 'npm run lint' command script
   - What a linter is, why is it important?
-- [ ] Setup circleci for our project https://circleci.com/ (setup a configuration and show it working in the dashboard)
+- [x] Setup circleci for our project https://circleci.com/ (setup a configuration and show it working in the dashboard)
   - What is continuous integration (CI)
   - What is a CI pipeline
   - What goes in a CI pipeline

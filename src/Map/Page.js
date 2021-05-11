@@ -120,7 +120,7 @@ const MapPage = () => {
     const [map, setMap] = useState(null)
     const [google, setGoogle] = useState(null)
     const [coords, setCoords] = useState(null)
-    const [setMarkers] = useState(null)
+    // const [markers, setMarkers] = useState(null)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -152,7 +152,7 @@ const MapPage = () => {
     useEffect(() => {
         if (google && coords && map) {
             createMarkers(google, coords, map).then(markers => {
-                setMarkers(markers)
+                // setMarkers(markers)
                 markers.forEach(marker => {
                     const {pageid, title} = marker
                     const contentString = infoWindowContent(title, pageid, false)
