@@ -4,8 +4,8 @@ import LikesPage from "./Page";
 
 jest.mock('react-router-dom', () => {
     return {
-        Link: ({children}) => {
-            return `<div className='link'>{children}</div>`
+        Link: function({ children }) {
+            return <div className='link'>{children}</div>
         }
     }
 })

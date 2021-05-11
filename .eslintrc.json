@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -18,11 +19,19 @@
     "plugins": [
         "react"
     ],
+    "overrides": [
+        {
+            "files": ["src/**/*.test.js"], // Or *.test.js
+            "rules": {
+                "react/display-name" : 1,
+                "react/prop-types": 1
+            }
+        }
+    ],
     "rules": {
         // suppress errors for missing 'import React' in files
         "react/react-in-jsx-scope": "off",
         // allow jsx syntax in js files (for next.js project)
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
-    },
-    "ignorePatterns": ["src/**/*.test.js"]
+    }
 }
