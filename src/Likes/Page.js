@@ -82,7 +82,8 @@ const LikesContainer = styled.div`
 `
 
 const LikesPage = () => {
-    const allLikes = useSelector(state => state.likes.likes);
+    const likeSelector = state => state.likes.likes
+    const allLikes = useSelector(likeSelector);
     const dispatch = useDispatch()
     return (
         <LikesContainer> 

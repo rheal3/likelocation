@@ -1,23 +1,12 @@
-// import {render, screen} from '@testing-library/react';
-// import ShallowRenderer from 'react-test-renderer/shallow'
-// import LikesPage from './Page'
-// import * as redux from "react-redux";
+import {render, screen} from '@testing-library/react';
+import ShallowRenderer from 'react-test-renderer/shallow'
+import LikesPage from './Page'
+import * as redux from "react-redux";
 
-// jest.mock('react-redux', () => {
-//     return {
-//         useSelector: function (selector) {
-//             console.log('mocked selector')
-//             return []
-//         },
+const mockUseSelector = () => {}
+const mockUseDispatch = jest.fn()
 
-//         useDispatch: function () {
-//             console.log('mocked dispatch')
-//             return () => {
-//                 console.log('calling the dispatch fn')
-//             }
-//         }
-//     }
-// })
+
 
 // jest.mock('react-router', () => {
 //     return {
@@ -35,18 +24,22 @@
 //     }
 // })
 
-// describe('LikesPage', () => {
+describe('LikesPage', () => {
 
-//     test('empty state should show when likes are empty', () => {
-//         const spy = jest.spyOn(redux, 'useSelector')
-//         const renderer = new ShallowRenderer()
-//         // import {useDispatch, useSelector} from "react-redux";
-//         const rendered = renderer.render(<LikesPage/>);
-//         console.log(rendered.getElementsByTagName('h1'))
-//         expect(mockedUseSelector).toBeCalledTimes(1)
-//     })
-// })
+    const useSelectorSpy = jest.spyOn(redux, "useSelector")
+    useSelectorSpy.mockImplementation(() => {
+        
+    })
 
-test('empty test', () => {
-    expect(true).toBe(true)
+    test('empty state should show when likes are empty', () => {
+        const spy = jest.spyOn(redux, 'useSelector')
+        const renderer = new ShallowRenderer()
+        // import {useDispatch, useSelector} from "react-redux";
+        const rendered = renderer.render(<LikesPage/>);
+        expect(mockedUseSelector).toBeCalledTimes(1)
+    })
 })
+
+// test('empty test', () => {
+//     expect(true).toBe(true)
+// })
