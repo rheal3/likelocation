@@ -11,8 +11,6 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 - always use rem for font size (calculates the size from a root element)
 - always use percentages (e.g. %, vh, vw)
 
-
-
 ## getting articles from wikipedia
 - [x] use axios to http requests (kind of like the fetchApi) https://github.com/axios/axios
 - [x] use this query https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=37.7891838%7C-122.4033522&gsradius=10000&gslimit=100&format=json
@@ -40,16 +38,46 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 - [x] add button "view full article" (hint: use an anchor, style it as a button)
 
 ## add production ready refinements
-- [ ] https://testing-library.com/docs/react-testing-library (completely optional because it's F'd)
+- [x] https://testing-library.com/docs/react-testing-library (completely optional because it's F'd)
 - [x] create a 'npm run lint' command script
   - What a linter is, why is it important?
+    - A Static analysis tool to assess non-functional code quality requirements
+    - Enforces consistency
+    - Can unexpected bugs
+    - checks syntax
 - [x] Setup circleci for our project https://circleci.com/ (setup a configuration and show it working in the dashboard)
   - What is continuous integration (CI)
-  - What is a CI pipeline
-  - What goes in a CI pipeline
+      - CI is a set of practices which allow multiple developers to push code to single codebase
+        - Pushing smaller chunks (in git chunks are commits)
+        - Code reviews before merging into the (in git this is normally the master branch)
+        - Blocking merges via a CI pipeline
+  - What is a CI pipeline?
+    - The automated system that assess codebase (for things like code quality, security, functional requirements)
+  - What goes in a CI pipeline?
+    - Runs tests
+    - checks codecoverage
+    - Builds code
+    - Runs static analysis (linting, complexity analysis)
+    - Check licenses for open software
+    - Check to see if dependencies are out of date
+    - Make database changes
+    - Use it to deploy to different environments (dev, staging, prod)
+    - Can notify things like slack if pipelines fail
   - Have circleci run the tests and run lint
     
 ## Functional programming
 - [ ] revisit HoFs
 - [ ] what is a Referential Transparency? (and how is that different to a Pure Function)
 - [ ] what is recursion? (what problems are recursive by nature?)
+
+## CI practises
+- [ ] Code reviews
+- [ ] Pull requests
+- [ ] Extending the pipeline
+
+## Look for things to harden up the frontend
+- [ ] look at how to configure robots.txt
+- [ ] more unit tests
+- [ ] get coverage working on the frontend https://create-react-app.dev/docs/running-tests/
+- [ ] More robust error messaging (probably look at using a Toast)
+- [ ] adding an actual logging library (look at using Rollbar)
