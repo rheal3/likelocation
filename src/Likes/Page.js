@@ -8,7 +8,7 @@ const LikedLocationList = ({allLikes, dispatch}) => {
         const tableData = allLikes.map(location => {
             let link = `/likes/${location.pageid}`
             return (
-                <ul className="nested" key={location.pageid}>
+                <ul className="nested" key={location.pageid} id={location.pageid}>
                     <li key={`${location.page}-title`}>
                         <Link to={{
                             pathname: link, 
@@ -39,7 +39,7 @@ const EmptyLikesComponent = () => {
         <Link to="/map">
             <EmptyLikesContainer>
                 <img src={emptyStateIllustration} alt="you have no likes"/>
-                <h2>you don&apos;t have any likes :(</h2>
+                <h2 id='empty-liked-locations-subheading'>you don&apos;t have any likes :(</h2>
                 <p>click here to add likes</p>
             </EmptyLikesContainer>
         </Link>
