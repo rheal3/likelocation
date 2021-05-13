@@ -9,7 +9,8 @@ import axios from 'axios';
 
 
 const options = {};
-const loader = new Loader('AIzaSyCsoZ_kZ2RwhNK_CTxddQMdl4rOXYFmLFo', options);
+// const loader = new Loader('AIzaSyCsoZ_kZ2RwhNK_CTxddQMdl4rOXYFmLFo', options);
+const loader = new Loader(process.env.REACT_APP_GOOGLE_API_KEY, options);
 
 const selectLocationProperties = ({lat, lon, title, pageid}) => ({lat, lon, title, pageid})
 
