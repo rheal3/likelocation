@@ -66,9 +66,13 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
   - Have circleci run the tests and run lint
     
 ## Functional programming
-- [ ] revisit HoFs
-- [ ] what is a Referential Transparency? (and how is that different to a Pure Function)
-- [ ] what is recursion? (what problems are recursive by nature?)
+- [x] revisit HoFs
+  - any function, that takes a function as a parameter or returns a function
+- [x] what is a Referential Transparency? (and how is that different to a Pure Function)
+  - An expression that can be replaced by the body of the function without changing the end result (the programs behavior)
+- [x] what is recursion? (what problems are recursive by nature?)
+  - Use when traversing a tree
+  - When you need to save the result
 
 ## CI practises
 - [ ] Code reviews
@@ -77,7 +81,8 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 
 ## Look for things to harden up the frontend
 - [ ] look at how to configure robots.txt
-- [ ] more unit tests
-- [ ] get coverage working on the frontend https://create-react-app.dev/docs/running-tests/
+- [x] more unit tests
+- [x] get coverage working on the frontend https://create-react-app.dev/docs/running-tests/
+  - `npm test -- --coverage --watchAll=false`
 - [ ] More robust error messaging (probably look at using a Toast)
 - [ ] adding an actual logging library (look at using Rollbar)

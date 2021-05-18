@@ -6650,6 +6650,11 @@
   "resolved" "https://registry.npmjs.org/jest-get-type/-/jest-get-type-26.3.0.tgz"
   "version" "26.3.0"
 
+"jest-google-maps-mock@^1.0.7":
+  "integrity" "sha512-3kehJKBCC1FeMNdWSIYZThZMvN957HvvHKuPKBSQO2Qbl81z2N/CSkl2MFqOkxwtdQb78eRktzt2H5DmU2Rs8Q=="
+  "resolved" "https://registry.npmjs.org/jest-google-maps-mock/-/jest-google-maps-mock-1.0.7.tgz"
+  "version" "1.0.7"
+
 "jest-haste-map@^26.6.2":
   "integrity" "sha512-easWIJXIw71B2RdR8kgqpjQrbMRWQBgiBwXYEhtGUTaX+doCjBheluShdDMeR8IMfJiTqH4+zfhtg29apJf/8w=="
   "resolved" "https://registry.npmjs.org/jest-haste-map/-/jest-haste-map-26.6.2.tgz"
