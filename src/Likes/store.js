@@ -5,6 +5,14 @@ const initState = {
 
 const likesReducer = (state = initState, {type, payload}) => {
     switch (type) {
+        case 'likes/setLikes': {
+            console.log("in reducer", payload)
+            return {
+                ...state,
+                isLoading: false,
+                likes: payload
+            }
+        }
         case 'likes/locationSelected': {
             const currentLikes = state.likes
             return {

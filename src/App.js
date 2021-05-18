@@ -7,6 +7,9 @@ import HomePage from './Home/Page'
 import LikesPage from './Likes/Page'
 import MapPage from './Map/Page'
 import SingleLikePage from './SingleLike/Page'
+import { useDispatch } from 'react-redux'
+import getLikes from './Likes/api'
+import { useEffect } from 'react'
 
 const NavBarContainer = styled.div`
   background: #afe0bf;
@@ -82,7 +85,21 @@ const AppContainer = styled.div`
   height: 100vh;
 `
 
+const setLikes = (likes) => ({type: 'likes/setLikes', payload: likes})
+
+const getAllLikes = () => {
+    return (dispatch) => {
+        getLikes().then(likes => dispatch(setLikes(likes)))
+    }
+}
+
 function App() {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAllLikes())
+    })
+
     return (
         <AppContainer className="App">
             <Router>
