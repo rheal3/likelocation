@@ -14,7 +14,7 @@ const loader = new Loader(process.env.REACT_APP_GOOGLE_API_KEY, options);
 
 const selectLocationProperties = ({lat, lon, title, pageid}) => ({lat, lon, title, pageid})
 
-const queryWiki = async (coords) => {
+export const queryWiki = async (coords) => {
     return await axios.get("https://en.wikipedia.org/w/api.php", {
         "Content-Type": "application/json",
         params: {
