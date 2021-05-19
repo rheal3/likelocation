@@ -6,6 +6,7 @@ import circleImg from './circle.svg';
 import likedCircleImg from './likedCircle.svg';
 import {useDispatch, useSelector} from "react-redux";
 import axios from 'axios';
+import postLike from './api'
 
 
 const options = {};
@@ -34,6 +35,7 @@ export const queryWiki = async (coords) => {
 const sendSelectedLocation = (title, pageid) => {
     return new Promise((resolve) => {
         window.setTimeout(() => {
+            postLike({title, pageid}).then(res => console.log(res))
             resolve({title, pageid})
         }, 5000)
     })
