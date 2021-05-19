@@ -1,10 +1,8 @@
 import createGoogleMapsMock from 'jest-google-maps-mock';
 import React from 'react';
-import { render, waitFor, cleanup } from '@testing-library/react';
-import MapPage, {queryWiki}from './Page';
+import { cleanup } from '@testing-library/react';
+import {queryWiki} from './Page';
 import mockedAxios from 'axios';
-
-import * as redux from "react-redux";
 
 jest.mock('react-router-dom', () => {
     return {
