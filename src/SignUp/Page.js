@@ -1,14 +1,24 @@
 import {useState} from 'react'
 
 const SignUpPage = () => {
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [password2, setPassword2] = useState()
+
+    const [signupState, setSignupValues] = useState({})
+
+    const updateSignup = (event) => {
+        const target = event.target;
+        const inputName = target.name;
+        const inputVal = target.value;
+        const updatedSignup = {...signupState, [inputName]: inputVal }
+        setSignupValues(updatedSignup)
+    }
+
+    const {email, password, password2} = signupState
+
     return (
-        <div>
-            <input type="email" name="email" value={email} onChange={(e)=>{setEmail(e.target.value)}} placeholder="Email"></input>
-            <input type="password" name="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} placeholder="Password"></input>
-            <input type="password" name="password2" value={password2} onChange={(e)=>{setPassword2(e.target.value)}} placeholder="Verify Password"></input>
+        <div onChange={updateSignup}>
+            <input type="email" name="email" placeholder='Enter Email' value={email}/>
+            <input type="password" name="password" placeholder='Password' value={password}/>
+            <input type="password" name="password2" placeholder='Verify Password' value={password2}/>
             <button>submit</button>
         </div>
     )
