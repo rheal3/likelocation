@@ -35,7 +35,7 @@ export const queryWiki = async (coords) => {
 const sendSelectedLocation = (title, pageid) => {
     return new Promise((resolve) => {
         window.setTimeout(() => {
-            postLike({title, pageid}).then(res => console.log(res))
+            postLike({title, pageid})
             resolve({title, pageid})
         }, 5000)
     })
