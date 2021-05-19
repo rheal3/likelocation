@@ -6,6 +6,7 @@ import {Provider} from "react-redux";
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 import likesReducer from './Likes/store'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const rootReducer = combineReducers({
     likes: likesReducer,
