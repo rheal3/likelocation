@@ -12,9 +12,7 @@ const getLikes = async () => {
             headers: {
                 "Access-Control-Allow-Origin": "*"
             }
-        }).then(res => {
-            return res.data.map(selectDatabaseProperties)
-        })
+        }).then(res => res.data.map(selectDatabaseProperties))
     } catch (err) {
         return err
     }
