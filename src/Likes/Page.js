@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from 'react-router-dom';
 import emptyStateIllustration from './emptyStateIllustration.png'
+import {deleteLike} from './api'
 
 const LikedLocationList = ({allLikes, dispatch}) => {
     if (allLikes) {
@@ -49,6 +50,7 @@ const EmptyLikesComponent = () => {
 const removeLocation = (like) => ({type: 'likes/locationRemoved', payload: like})
 
 const removeLikedLocation = (dispatch, pageid) => {
+    deleteLike(pageid)
     dispatch(removeLocation(pageid))
 }
 

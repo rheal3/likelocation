@@ -1,5 +1,13 @@
 import axios from 'axios';
 
+export const deleteLike = async (pageid) => {
+    try {
+        return await axios.delete(`http://localhost:8080/likes/${pageid}`).then()
+    } catch (err) {
+        return err
+    }
+}
+
 const selectDatabaseProperties = (data) => {
     data['pageid'] = data['page_id']
     delete data['page_id']
