@@ -7,6 +7,8 @@ import HomePage from './Home/Page'
 import LikesPage from './Likes/Page'
 import MapPage from './Map/Page'
 import SingleLikePage from './SingleLike/Page'
+import LoginPage from './Login/Page'
+import SignUpPage from './SignUp/Page'
 import { useDispatch } from 'react-redux'
 import getLikes from './Likes/api'
 import { useEffect } from 'react'
@@ -93,6 +95,13 @@ const getAllLikes = () => {
     }
 }
 
+const ContentRoute = () => 
+    <>
+        <NavBar/>
+        <Content/>
+    </>
+
+
 function App() {
     const dispatch = useDispatch()
 
@@ -103,8 +112,11 @@ function App() {
     return (
         <AppContainer className="App">
             <Router>
-                <NavBar/>
-                <Content/>
+                <Switch>
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/signup" component={SignUpPage} />
+                    <Route path="/" component={ContentRoute} />
+                </Switch>
             </Router>
         </AppContainer>
     );
