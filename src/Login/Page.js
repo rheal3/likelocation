@@ -16,8 +16,7 @@ const SignUpContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     img {
-        margin: 100px 0px 50px 0px;
-        
+        margin: 80px 0px 50px 0px;
     }
     input {
         margin: 10px 0px;
@@ -41,9 +40,9 @@ const BtnContainer = styled.div`
         flex-grow: 4;
     }
     a {
-        display: flex;            /* new */
-        align-items: center;      /* new */
-        justify-content: center;  /* new */
+        display: flex;
+        align-items: center;
+        justify-content: center;
         flex-grow: 1;
         text-align: center;
     }
@@ -82,12 +81,12 @@ const LoginPage = () => {
         <SignUpContainer>
             <img src={logo} alt="like location logo"/>
             <Form onChange={updateLogin}>
+                <h1>Login Form</h1>
                 <Form.Control type="email" name="email" placeholder='Enter Email' value={email}/>
                 <Form.Control type="password" name="password" placeholder='Password' value={password}/>
                 <BtnContainer>
                     <Button disabled={!enableLogin} onClick={submitLogin} className="submit">submit</Button>
-                    {/* <Button onClick={() => {history.push('/signup')}}>Signup!</Button> */}
-                    <a href="/signup" className="signup">Signup!</a>
+                    <a href="/signup">signup</a>
                 </BtnContainer>
             </Form>
         </SignUpContainer>

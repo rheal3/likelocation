@@ -11,10 +11,10 @@ const SignUpContainer = styled.div`
     min-width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     img {
-        margin-bottom: 50px;
+        margin: 80px 0px 50px 0px;
     }
     input {
         margin: 10px 0px;
@@ -28,6 +28,24 @@ const SignUpContainer = styled.div`
         box-shadow: 2px 3px 10px 2px rgba(0,0,0,0.47);
     }
 `
+
+const BtnContainer = styled.div`
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    align-items: stretch;
+    button {
+        flex-grow: 4;
+    }
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        text-align: center;
+    }
+`
+
 
 const SignUpPage = () => {
     const initialState = {email: "", password: "", password2: ""}
@@ -71,10 +89,15 @@ const SignUpPage = () => {
         <SignUpContainer>
             <img src={logo} alt="like location logo"/>
             <Form onChange={updateSignup}>
+                <h1>Signup Form</h1>
                 <Form.Control type="email" name="email" placeholder='Enter Email' value={email}/>
                 <Form.Control type="password" name="password" placeholder='Password' value={password}/>
                 <Form.Control type="password" name="password2" placeholder='Verify Password' value={password2} onChange={checkPasswordsMatch}/>
-                <Button disabled={!enableSignup} onClick={submitSignup}>submit</Button>
+                <BtnContainer>
+                    <Button disabled={!enableSignup} onClick={submitSignup}>submit</Button>
+                    <a href="/login">login</a>
+                </BtnContainer>
+
             </Form>
         </SignUpContainer>
     )
