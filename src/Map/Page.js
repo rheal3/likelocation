@@ -8,6 +8,9 @@ import {useDispatch, useSelector} from "react-redux";
 import axios from 'axios';
 import postLike from './api'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const options = {};
 const loader = new Loader('AIzaSyCsoZ_kZ2RwhNK_CTxddQMdl4rOXYFmLFo', options);
@@ -34,10 +37,8 @@ export const queryWiki = async (coords) => {
 
 const sendSelectedLocation = (title, pageid) => {
     return new Promise((resolve) => {
-        window.setTimeout(() => {
-            postLike({title, pageid})
-            resolve({title, pageid})
-        }, 5000)
+        postLike({title, pageid})
+        resolve({title, pageid})
     })
 }
 
@@ -53,7 +54,15 @@ const locationSelectedAction = (title, pageid) => {
     }
 }
 
+const notify = () => {
+    // toast("added to likes..")
+    toast.error("added to likes..", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
+};
+
 const _like = (dispatch, title, pageid) => {
+    notify()
     dispatch(locationSelectedAction(title, pageid))
 }
 
@@ -101,7 +110,6 @@ const createMap = async (google) => {
 const MapContainer = styled.div`
   height: 100%;
   width: 100%;
-
   #map {
     height: 100%;
     width: 100%;
@@ -113,13 +121,13 @@ const infoWindowContent = (title, pageid) => {
             <div id="${infoWindowId}">
                 <h1>${title}</h1>
                 <button onclick="like('${title}', '${pageid}')">Like</button> 
-            </divi>
+            </div>
 `
 }
 
+
 const MapPage = () => {
     const allLikes = useSelector((state => state.likes.likes));
-    const isLoading = useSelector((state => state.likes.isLoading));
     const [map, setMap] = useState(null)
     const [google, setGoogle] = useState(null)
     const [coords, setCoords] = useState(null)
@@ -136,21 +144,6 @@ const MapPage = () => {
         getCurrentPosition().then(coords => setCoords(coords));
         window['like'] = _like.bind(null, dispatch)
     }, [])
-
-    useEffect(() => {
-        if (isLoading) {
-            const infoWindowDiv = document.getElementById(infoWindowId)
-            const spinnerElement = document.createElement('i')
-            spinnerElement.id = 'spinner_id'
-            spinnerElement.className = 'spinner fas fa-circle-notch'
-            infoWindowDiv.appendChild(spinnerElement)
-        } else {
-            const spinner = document.getElementById('spinner_id')
-            if (spinner) {
-                spinner.outerHTML = ""
-            }
-        }
-    }, [isLoading])
 
     useEffect(() => {
         if (google && coords && map) {
@@ -183,6 +176,7 @@ const MapPage = () => {
     return (
         <MapContainer>
             <div id='map'></div>
+            <ToastContainer />
         </MapContainer>
     )
 }

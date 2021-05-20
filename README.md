@@ -84,5 +84,5 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 - [x] more unit tests
 - [x] get coverage working on the frontend https://create-react-app.dev/docs/running-tests/
   - `npm test -- --coverage --watchAll=false`
-- [ ] More robust error messaging (probably look at using a Toast)
+- [x] More robust error messaging (probably look at using a Toast)
 - [ ] adding an actual logging library (look at using Rollbar)
