@@ -7,6 +7,7 @@ import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 import likesReducer from './Likes/store'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './axiosConfig'
 
 const rootReducer = combineReducers({
     likes: likesReducer,
