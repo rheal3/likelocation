@@ -12,6 +12,7 @@ import SignUpPage from './SignUp/Page'
 import { useDispatch } from 'react-redux'
 import getLikes from './Likes/api'
 import { useEffect } from 'react'
+import { useRequireLogin } from './hooks'
 
 const NavBarContainer = styled.div`
   background: #afe0bf;
@@ -95,11 +96,13 @@ const getAllLikes = () => {
     }
 }
 
-const ContentRoute = () => 
-    <>
+const ContentRoute = () => {
+    useRequireLogin()
+    return <>
         <NavBar/>
         <Content/>
     </>
+}
 
 
 function App() {

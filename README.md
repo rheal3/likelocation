@@ -22,7 +22,7 @@ http://preview.themeforest.net/item/roe-reactjs-admin-dashboard-template/full_sc
 ## Populate the likes page (http://localhost:3000/likes)
 - [x] Create a simple (or complex) list view
     - visit themeforest for inspiration
-- [ ] get the likes from the store (hint: use useSelector) inside the page
+- [xs] get the likes from the store (hint: use useSelector) inside the page
   - checkout how lists are rendered in react https://reactjs.org/docs/lists-and-keys.html
   - use the pageid as the key
   - what are keys used for in React and why are they important?

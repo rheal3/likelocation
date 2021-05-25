@@ -55,8 +55,7 @@ const locationSelectedAction = (title, pageid) => {
 }
 
 const notify = () => {
-    // toast("added to likes..")
-    toast.error("added to likes..", {
+    toast.success("added to likes..", {
         position: toast.POSITION.BOTTOM_RIGHT
       });
 };
@@ -131,7 +130,6 @@ const MapPage = () => {
     const [map, setMap] = useState(null)
     const [google, setGoogle] = useState(null)
     const [coords, setCoords] = useState(null)
-    // const [markers, setMarkers] = useState(null)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -148,7 +146,6 @@ const MapPage = () => {
     useEffect(() => {
         if (google && coords && map) {
             createMarkers(google, coords, map).then(markers => {
-                // setMarkers(markers)
                 markers.forEach(marker => {
                     const {pageid, title} = marker
                     const contentString = infoWindowContent(title, pageid, false)

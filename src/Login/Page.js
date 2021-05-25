@@ -72,9 +72,14 @@ const LoginPage = () => {
 
     const {email, password} = loginState
 
-    let history = useHistory()
+    const history = useHistory()
     const submitLogin = () => { 
-        postToLogin(loginState).then(res => res.data ? history.push('/') : false)
+        postToLogin(loginState).then(res => {
+            if (res.data) {
+                localStorage.setItem('token', res.data.accessToken)
+                history.push('/')
+            } 
+        })
     }
 
     return (
