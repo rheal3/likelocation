@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import styled from 'styled-components'
 import logo from '../logo2.png'
 import postToSignup from './api'
+import { useHistory } from 'react-router-dom';
 
 const SignUpContainer = styled.div`
     background: #afe0bf;
@@ -72,9 +73,9 @@ const SignUpPage = () => {
     }
 
     const {email, password, password2} = signupState
-
+    const history = useHistory()
     const submitSignup = () => { 
-        postToSignup(signupState).then(setSignupValues(initialState))
+        postToSignup(signupState).then(setSignupValues(initialState)).then(() => history.push('/'))
     }
 
     const checkPasswordsMatch = (event) => {
