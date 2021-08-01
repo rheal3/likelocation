@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux'
 import getLikes from './Likes/api'
 import { useEffect } from 'react'
 import { useRequireLogin } from './hooks'
+import { useHistory } from 'react-router-dom';
+
 
 const NavBarContainer = styled.div`
   background: #afe0bf;
@@ -57,13 +59,23 @@ NavItem.propTypes = {
     icon: PropTypes.string
 }
 
-const NavBar = () =>
-    <NavBarContainer>
-        <img src={logo} alt="" />
-        <NavItem path="/" title="Home" icon="home"/>
-        <NavItem path="/map" title="Map" icon="map-signs"/>
-        <NavItem path="/likes" title="Likes" icon="heart"/>
-    </NavBarContainer>
+
+const NavBar = () => {
+    const history = useHistory()
+    const logout = () => {
+        localStorage.removeItem('token')
+        history.push('/login')
+    }
+    return (
+        <NavBarContainer>
+            <img src={logo} alt="" />
+            <NavItem path="/" title="Home" icon="home"/>
+            <NavItem path="/map" title="Map" icon="map-signs"/>
+            <NavItem path="/likes" title="Likes" icon="heart"/>
+            <button onClick={logout}>logout</button>
+        </NavBarContainer>
+    )
+}
 
 
 const ContentContainer = styled.div`
@@ -107,6 +119,7 @@ const ContentRoute = () => {
 
 function App() {
     const dispatch = useDispatch()
+
 
     useEffect(() => {
         dispatch(getAllLikes())

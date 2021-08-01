@@ -78,6 +78,7 @@ const LoginPage = () => {
             if (res.data) {
                 localStorage.setItem('token', res.data.accessToken)
                 history.push('/')
+                // TODO get allLikes
             } 
         })
     }

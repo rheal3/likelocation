@@ -75,7 +75,7 @@ const SignUpPage = () => {
     const {email, password, password2} = signupState
     const history = useHistory()
     const submitSignup = () => { 
-        postToSignup(signupState).then(setSignupValues(initialState)).then(() => history.push('/'))
+        postToSignup(signupState).then(setSignupValues(initialState)).then(() => history.push('/login'))
     }
 
     const checkPasswordsMatch = (event) => {

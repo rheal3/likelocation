@@ -159,7 +159,6 @@ const MapPage = () => {
                         currentInfoWindow.setContent(contentString)
                         currentInfoWindow.open(map, marker)
                     })
-
                     allLikes.forEach(({pageid}) => {
                         if (marker['pageid'] === Number(pageid)) {
                             marker['icon']['url'] = likedCircleImg
